@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Core.Base\\PracaInzynierskaAPI.Core.Base.csproj": {}
+    "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Core.Base\\PracaInzynierskaAPI.Core.Base.csproj": {}
   },
   "projects": {
-    "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Core.Base\\PracaInzynierskaAPI.Core.Base.csproj": {
+    "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Core.Base\\PracaInzynierskaAPI.Core.Base.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Core.Base\\PracaInzynierskaAPI.Core.Base.csproj",
+        "projectUniqueName": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Core.Base\\PracaInzynierskaAPI.Core.Base.csproj",
         "projectName": "PracaInzynierskaAPI.Core.Base",
-        "projectPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Core.Base\\PracaInzynierskaAPI.Core.Base.csproj",
+        "projectPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Core.Base\\PracaInzynierskaAPI.Core.Base.csproj",
         "packagesPath": "C:\\Users\\eatus\\.nuget\\packages\\",
-        "outputPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Core.Base\\obj\\",
+        "outputPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Core.Base\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

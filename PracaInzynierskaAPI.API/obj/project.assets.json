@@ -6282,11 +6282,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.API\\PracaInzynierskaAPI.API.csproj",
+      "projectUniqueName": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.API\\PracaInzynierskaAPI.API.csproj",
       "projectName": "PracaInzynierskaAPI.API",
-      "projectPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.API\\PracaInzynierskaAPI.API.csproj",
+      "projectPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.API\\PracaInzynierskaAPI.API.csproj",
       "packagesPath": "C:\\Users\\eatus\\.nuget\\packages\\",
-      "outputPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.API\\obj\\",
+      "outputPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6307,8 +6307,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierska.Application\\PracaInzynierska.Application.csproj": {
-              "projectPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierska.Application\\PracaInzynierska.Application.csproj"
+            "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierska.Application\\PracaInzynierska.Application.csproj": {
+              "projectPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierska.Application\\PracaInzynierska.Application.csproj"
             }
           }
         }

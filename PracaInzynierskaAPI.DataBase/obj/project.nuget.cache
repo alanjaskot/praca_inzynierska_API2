@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ryYpLyar5avrRZe1oTCOTKAWniCou1HCCjHYKiT00TAlX+JzPef5q1RNpG2smNARWM7ScHUFKif9o5uCSynmkg==",
+  "dgSpecHash": "asppz8isqiXyKvU0iHmWnrKTZ1NnBem+O/f0qlSo1HhWUDxa9tRdGxE28yz8MQ61g+/CWW6P5atA6seUMce1Aw==",
   "success": true,
-  "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.DataBase\\PracaInzynierskaAPI.DataBase.csproj",
+  "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.DataBase\\PracaInzynierskaAPI.DataBase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\eatus\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\eatus\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

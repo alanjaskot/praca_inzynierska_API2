@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HL/QmETuT7LtPDc+D4J9PbUiAgYMJu6szMPLXqewIT4bDH/XtELv+dNyxzp+1mUd+dS/lcxX7EkEc6zeOp2LwA==",
+  "dgSpecHash": "L7Tk79LH07GnZfXmCUB4FB58OXZbZnYkrXgqTDdE6JZ0Ms8MnLLRWTZtF/RmPoAys6QhXLSZ6yySxnu/UGafFg==",
   "success": true,
-  "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierska.Application\\PracaInzynierska.Application.csproj",
+  "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierska.Application\\PracaInzynierska.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\eatus\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\eatus\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

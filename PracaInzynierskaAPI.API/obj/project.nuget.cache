@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LhwiDvSIpmgQ39MMakb0Gd5rR+7KZZfoDEFoRRoHqlCSLAg0gXDyWzr9CpSkoQ6xUw8bSTMvgUv34xz8X/FvtA==",
+  "dgSpecHash": "poYADvV1xWPuUAgYHm3sWJqGz5K7UV2/mUpMGI6gRUdfhNjf4MsuZfyTvYK75kMFAsOWXv3sCpGTFwSXXh50kQ==",
   "success": true,
-  "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.API\\PracaInzynierskaAPI.API.csproj",
+  "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.API\\PracaInzynierskaAPI.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\eatus\\.nuget\\packages\\autofac\\6.0.0\\autofac.6.0.0.nupkg.sha512",
     "C:\\Users\\eatus\\.nuget\\packages\\autofac.extensions.dependencyinjection\\7.2.0\\autofac.extensions.dependencyinjection.7.2.0.nupkg.sha512",

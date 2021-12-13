@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SOlIONmhBmdZq5qlqCNREg95tKaEvc6MkhsY3ci70RgyfmN4g8EVPkLh9cn5ocaxRT7dk1iurkNyqS2MVjKLuQ==",
+  "dgSpecHash": "AgNPGqyIXzfxIUThw0EuulnPxs5Qt2QnXQsn+YN6frnzeSqKkA8K7zAphIhFrWaaovbtkCzAVBHbqx7rjClqCg==",
   "success": true,
-  "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Core.Abstraction\\PracaInzynierskaAPI.Core.Abstraction.csproj",
+  "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Core.Abstraction\\PracaInzynierskaAPI.Core.Abstraction.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

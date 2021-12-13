@@ -98,7 +98,7 @@ namespace PracaInzynierskaAPI.API
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder//.WithOrigins("http://localhost:4200")
+                    builder => builder.WithOrigins()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
@@ -179,7 +179,10 @@ namespace PracaInzynierskaAPI.API
 
             app.UseRouting();
 
-            app.UseCors(x => x.WithOrigins().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            app.UseCors(x => x.WithOrigins()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
 
             app.UseAuthorization();
             app.UseAuthorization();

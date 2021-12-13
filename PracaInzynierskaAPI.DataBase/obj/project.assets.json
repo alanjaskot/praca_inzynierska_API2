@@ -1012,11 +1012,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.DataBase\\PracaInzynierskaAPI.DataBase.csproj",
+      "projectUniqueName": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.DataBase\\PracaInzynierskaAPI.DataBase.csproj",
       "projectName": "PracaInzynierskaAPI.DataBase",
-      "projectPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.DataBase\\PracaInzynierskaAPI.DataBase.csproj",
+      "projectPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.DataBase\\PracaInzynierskaAPI.DataBase.csproj",
       "packagesPath": "C:\\Users\\eatus\\.nuget\\packages\\",
-      "outputPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.DataBase\\obj\\",
+      "outputPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.DataBase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1037,11 +1037,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Entities\\PracaInzynierskaAPI.Entities.csproj": {
-              "projectPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Entities\\PracaInzynierskaAPI.Entities.csproj"
+            "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Entities\\PracaInzynierskaAPI.Entities.csproj": {
+              "projectPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Entities\\PracaInzynierskaAPI.Entities.csproj"
             },
-            "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Models\\PracaInzynierskaAPI.Models.csproj": {
-              "projectPath": "D:\\inz\\PracaInzynierskaAPI\\praca_inzynierska_API\\PracaInzynierskaAPI.Models\\PracaInzynierskaAPI.Models.csproj"
+            "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Models\\PracaInzynierskaAPI.Models.csproj": {
+              "projectPath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Models\\PracaInzynierskaAPI.Models.csproj"
             }
           }
         }
