@@ -88,7 +88,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             {
                 var registerResponse = _service.AddUser(user);
                 if (registerResponse.Success)
-                    return await Task.FromResult(Created($"Użytkownik {user.UserName} został utworzony", registerResponse.Object));
+                    return await Task.FromResult(Created($"User {user.UserName} has been created", registerResponse.Object));
                 else
                     return await Task.FromResult(BadRequest());
             }
