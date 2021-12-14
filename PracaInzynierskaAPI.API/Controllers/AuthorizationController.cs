@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace PracaInzynierskaAPI.API.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
@@ -55,7 +57,7 @@ namespace PracaInzynierskaAPI.API.Controllers
                         isEmailExists = true;
 
                     if(isUserNameExist == false && isEmailExists == false )
-                        return await Task.FromResult(BadRequest("błędny użytkownik lub hasło"));
+                        return await Task.FromResult(BadRequest ("błędny użytkownik lub hasło"));
 
                     var loginResponse = _service.Login(login.Login, login.Password);
                     
@@ -86,7 +88,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             {
                 var registerResponse = _service.AddUser(user);
                 if (registerResponse.Success)
-                    return await Task.FromResult(Ok($"Użytkownik {user.UserName} został utworzony"));
+                    return await Task.FromResult(Created($"Użytkownik {user.UserName} został utworzony", registerResponse.Object));
                 else
                     return await Task.FromResult(BadRequest());
             }

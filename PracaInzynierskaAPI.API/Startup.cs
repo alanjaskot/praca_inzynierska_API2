@@ -98,7 +98,7 @@ namespace PracaInzynierskaAPI.API
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins()
+                    builder => builder.WithOrigins("http://localhost:4200")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
@@ -167,9 +167,7 @@ namespace PracaInzynierskaAPI.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PracaInzynierskaAPI.API v1"));
             }
 
-            app.UseCors(x => x.WithOrigins()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+            
             
             app.UseStaticFiles();
             app.UseForwardedHeaders();
@@ -179,10 +177,7 @@ namespace PracaInzynierskaAPI.API
 
             app.UseRouting();
 
-            app.UseCors(x => x.WithOrigins()
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials());
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
             app.UseAuthorization();

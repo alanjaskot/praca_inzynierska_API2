@@ -82,7 +82,7 @@ namespace PracaInzynierskaAPI.DataBase.Context
             builder.ApplyConfiguration(new UserPermissionModelEntityConfiguration());
         }
 
-#endregion
+        #endregion
 
         #region Saves
 
@@ -120,20 +120,20 @@ namespace PracaInzynierskaAPI.DataBase.Context
                 if (saveChangesTestResult.Item1)
                 {
                     return base.SaveChanges();
-                }
-                else
-                {
-                    ChangeTracker
-                        .Entries()
-                        .Where(p => p.State == EntityState.Added || p.State == EntityState.Modified || p.State == EntityState.Deleted)
-                        .ToList()
-                        .ForEach(x => x.State = EntityState.Detached);
-
-                    _logger.Info("SaveChangesTest");
-
-                    throw new Exception(saveChangesTestResult.Item2.Message, saveChangesTestResult.Item2);
-                }
             }
+                else
+            {
+                ChangeTracker
+                    .Entries()
+                    .Where(p => p.State == EntityState.Added || p.State == EntityState.Modified || p.State == EntityState.Deleted)
+                    .ToList()
+                    .ForEach(x => x.State = EntityState.Detached);
+
+                _logger.Info("SaveChangesTest");
+
+                throw new Exception(saveChangesTestResult.Item2.Message, saveChangesTestResult.Item2);
+            }
+        }
             catch (Exception err)
             {
                 _logger.Error(err, "SaveChanges");

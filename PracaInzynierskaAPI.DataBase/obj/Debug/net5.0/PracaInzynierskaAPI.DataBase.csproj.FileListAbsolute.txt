@@ -6,9 +6,7 @@ D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\ref\Pra
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.DataBase.pdb
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.Core.Abstraction.dll
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.Core.Base.dll
-D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.EncryptorDecryptor.dll
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.Entities.dll
-D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.EncryptorDecryptor.pdb
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.Entities.pdb
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.Core.Abstraction.pdb
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.DataBase\bin\Debug\net5.0\PracaInzynierskaAPI.Core.Base.pdb
