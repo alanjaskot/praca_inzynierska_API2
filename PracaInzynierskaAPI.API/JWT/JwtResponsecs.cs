@@ -5,15 +5,13 @@ using Microsoft.IdentityModel.Tokens;
 using PracaInzynierskaAPI.API.JWT.Interfaces;
 using PracaInzynierskaAPI.API.JWT.Validators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PracaInzynierskaAPI.API.JWT
 {
     public static class JwtResponse
     {
+
         public static void AddJwt(this IServiceCollection services)
         {
             IConfiguration configuration;
@@ -23,32 +21,31 @@ namespace PracaInzynierskaAPI.API.JWT
                 configuration = serviceProvider.GetService<IConfiguration>();
             }
 
-            var jwtSection = configuration.GetSection("jwt");
+            var jwtSection = configuration.GetSection("jwtBearer");
             services.Configure<JwtOptions>(jwtSection);
+
             var options = new JwtOptions();
             jwtSection.Bind(options);
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer(cfg =>
+                .AddJwtBearer(config =>
                 {
-                    cfg.RequireHttpsMetadata = false;
-                    cfg.SaveToken = true;
-
-                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    config.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SecretKey)),
                         ValidIssuer = options.Issuer,
                         ValidAudience = options.ValidAudience,
                         ValidateAudience = options.ValidateAudience,
                         ValidateLifetime = options.ValidateLifetime,
                         LifetimeValidator = TokenLifeTimeValidator.Validate,
-                        ClockSkew = TimeSpan.Zero,
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
+
 
             services.AddSingleton<IJwtService, JwtService>();
         }

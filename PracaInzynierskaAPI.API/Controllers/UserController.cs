@@ -78,9 +78,9 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [HttpGet("GetMe")]
+        [HttpGet("GetMeWithPassword")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetMeWithPassword()
         {

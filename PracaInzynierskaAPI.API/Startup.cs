@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 
 using PracaInzynierskaAPI.DataBase.Context;
 using PracaInzynierskaAPI.DataBase.Repository.Author;
@@ -34,7 +32,6 @@ using PracaInzynierska.Application.Mapper;
 using Microsoft.EntityFrameworkCore;
 using PracaInzynierskaAPI.DataBase.Repository.User;
 using PracaInzynierskaAPI.DataBase.Repository.UserPermission;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
 using System.Linq;
@@ -179,7 +176,7 @@ namespace PracaInzynierskaAPI.API
 
             app.UseCors("CorsPolicy");
 
-            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

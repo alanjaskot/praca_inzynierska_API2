@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using PracaInzynierskaAPI.API.JWT.Helpers;
 using PracaInzynierskaAPI.API.JWT.Interfaces;
 using PracaInzynierskaAPI.API.JWT.Models;
 using System;
@@ -14,15 +15,15 @@ namespace PracaInzynierskaAPI.API.JWT
 {
     public class JwtService: IJwtService
     {
-        private readonly IOptions<JwtOptions> options;
-        private readonly SigningCredentials signingCredentials;
+        private readonly IOptions<JwtOptions> _options;
+        private readonly SigningCredentials _signingCredentials;
 
 
         public JwtService(IOptions<JwtOptions> options)
         {
-            this.options = options;
-            var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("eaBMU2nbbZmt43sUwByUpJJF6Y5mG2g5N49sQFUpJFcGFJdyhxskR3bxd527kax3UcXHnB"));
-            this.signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
+            _options = options;
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Helper.SECRET_KEY));
+            _signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
         }
 
         public Task<JwtAuthenticationTokenModel> CreateToken(Guid userId)
@@ -36,19 +37,18 @@ namespace PracaInzynierskaAPI.API.JWT
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.NameId, userId.ToString()),
-                new Claim(JwtRegisteredClaimNames.FamilyName, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, nowEpoch.ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, nowEpoch.ToString())
             };
 
-            var expires = now.AddHours(this.options.Value.ExpiryHours);
+            var expires = now.AddHours(_options.Value.ExpiryHours);
             var jwt = new JwtSecurityToken(
-                 issuer: this.options.Value.Issuer,
+                issuer: _options.Value.Issuer,
                 claims: jwtClaims,
                 notBefore: now,
                 expires: expires,
-                signingCredentials: this.signingCredentials
+                signingCredentials: _signingCredentials
             );
 
             return Task.FromResult(
