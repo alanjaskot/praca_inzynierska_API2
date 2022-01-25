@@ -28,7 +28,7 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Category
             try
             {
                 result = _context.Categories
-                    .Where(c => c.IsDeleted == false).ToList();
+                    .Where(c => c.IsDeleted != true).ToList();
                 if (result != null)
                     return new ResponseModel<List<CategoryDbModel>>
                     {
@@ -62,7 +62,7 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Category
             try
             {
                 result = _context.Categories.Where(c => c.Id == id
-                && c.IsDeleted == false).FirstOrDefault();
+                && c.IsDeleted != true).FirstOrDefault();
                 if (result != null)
                     return new ResponseModel<CategoryDbModel>
                     {
@@ -91,8 +91,8 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Category
 
         public ResponseModel<List<CategoryDbModel>> GetByName(List<string> list)
         {
-            var result = default(List<CategoryDbModel>);
-            var temp = default(List<CategoryDbModel>);
+            var result = new List<CategoryDbModel>();
+            var temp = new List<CategoryDbModel>();
             try
             {
                 foreach (var item in list)
@@ -196,9 +196,9 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Category
             };
         }
 
-        public ResponseModel<Guid> SoftDelete(CategoryDbModel category)
+        public ResponseModel<Guid> SoftDelete(Guid categoryId)
         {
-            if (category == null)
+            if (categoryId == Guid.Empty)
                 return new ResponseModel<Guid>
                 {
                     Success = false,
@@ -207,18 +207,19 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Category
 
             try
             {
-                if (category != null)
+                if (categoryId != Guid.Empty)
                 {
-                    category.IsDeleted = true;
-                    category.DeletedAt = DateTime.Now;
-                    category.Category = DateTime.Now.ToString();
-                    var softDelete = _context.Categories.Update(category);
+                    var response = GetById(categoryId);
+                    response.Object.IsDeleted = true;
+                    response.Object.DeletedAt = DateTime.Now;
+                    response.Object.Category = DateTime.Now.ToString();
+                    var softDelete = _context.Categories.Update(response.Object);
                     if (softDelete.State == EntityState.Modified)
                         return new ResponseModel<Guid>
                         {
                             Success = true,
                             Message = null,
-                            Object = category.Id
+                            Object = response.Object.Id
                         };
                 }
             }

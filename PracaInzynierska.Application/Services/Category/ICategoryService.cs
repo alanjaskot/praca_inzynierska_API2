@@ -15,7 +15,7 @@ namespace PracaInzynierska.Application.Services.Category
         public ResponseModel<List<CategoryDTO>> GetCategoriesByName(List<string> list);
         public ResponseModel<Guid> AddCategory(CategoryDTO category);
         public ResponseModel<Guid> UpdateCategory(CategoryDTO category);
-        public ResponseModel<Guid> SoftDeleteCategory(CategoryDTO category);
+        public ResponseModel<Guid> SoftDeleteCategory(Guid categoryId);
         public ResponseModel<Guid> DeleteCategory(Guid id);
     }
 }

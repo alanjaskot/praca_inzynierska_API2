@@ -40,6 +40,8 @@ using PracaInzynierskaAPI.API.JWT;
 using System;
 using Autofac;
 using System.Reflection;
+using PracaInzynierskaAPI.API.PoliciesAndPermissions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PracaInzynierskaAPI.API
 {
@@ -61,6 +63,7 @@ namespace PracaInzynierskaAPI.API
             .UseNpgsql("Host=localhost;Port=1511;Database=p_inz;Username=admin;Password=postgres "));
 
             services.AddSingleton(AutoMapperConfig.InitMap());
+            
 
             services.AddScoped<IPInzDataBaseContext, PInzDataBaseContext>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
@@ -92,6 +95,8 @@ namespace PracaInzynierskaAPI.API
 
             services.AddControllers();
 
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -105,6 +110,14 @@ namespace PracaInzynierskaAPI.API
             {
                 options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                PolicesAndPermisionsInitiator.Init(options);
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
             });
 
             services.AddSwaggerGen(c =>

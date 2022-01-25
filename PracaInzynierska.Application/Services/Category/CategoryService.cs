@@ -181,12 +181,12 @@ namespace PracaInzynierska.Application.Services.Category
             }     
         }
 
-        public ResponseModel<Guid> SoftDeleteCategory(CategoryDTO category)
+        public ResponseModel<Guid> SoftDeleteCategory(Guid categoryId)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetCategoryRepository.SoftDelete(_mapper.Map<CategoryDbModel>(category));
+                var repoResponse = _unitOfWork.GetCategoryRepository.SoftDelete(categoryId);
                 if(repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

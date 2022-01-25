@@ -18,7 +18,7 @@ namespace PracaInzynierska.Application.Services.Author
         public ResponseModel<Guid> AddAuthor(AuthorDTO author);
         public ResponseModel<bool> ApproveAuthor(AuthorDTO author);
         public ResponseModel<Guid> UpdateAuthor(AuthorDTO author);
-        public ResponseModel<List<Guid>> SoftDeleteAuthors(List<AuthorDTO> authors);
+        public ResponseModel<Guid> SoftDeleteAuthor(Guid authorId);
         public ResponseModel<Guid> DeleteAuthor(Guid id);
     }
 }

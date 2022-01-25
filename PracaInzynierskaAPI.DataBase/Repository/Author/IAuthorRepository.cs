@@ -18,7 +18,7 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Author
         public ResponseModel<Guid> Add(AuthorDbModel author);
         public ResponseModel<bool> Approve(AuthorDbModel author);
         public ResponseModel<Guid> Update(AuthorDbModel author);
-        public ResponseModel<List<Guid>> SoftDelete(List<AuthorDbModel> authors);
+        public ResponseModel<Guid> SoftDelete(Guid authorId);
         public ResponseModel<Guid> Delete(Guid id);
     }
 }

@@ -50,7 +50,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetAllCategoryById")]
+        [HttpGet("GetCategoryById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -102,6 +102,8 @@ namespace PracaInzynierskaAPI.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateCategory(CategoryDTO category)
         {
+            category.Id = Guid.NewGuid();
+            category.UserId = Guid.Parse(User.Identity.Name);
             try
             {
                 var serviceResponse = _service.AddCategory(category);
@@ -122,7 +124,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         [HttpPut("UpdateCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdatedCategory(CategoryDTO category)
+        public async Task<IActionResult> UpdateCategory(CategoryDTO category)
         {
             try
             {
@@ -144,11 +146,11 @@ namespace PracaInzynierskaAPI.API.Controllers
         [HttpDelete("SoftDeleteCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SoftDeleteCategory(CategoryDTO category)
+        public async Task<IActionResult> SoftDeleteCategory(Guid categoryId)
         {
             try
             {
-                var serviceResponse = _service.SoftDeleteCategory(category);
+                var serviceResponse = _service.SoftDeleteCategory(categoryId);
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse));
                 else

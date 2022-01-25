@@ -52,6 +52,32 @@ namespace PracaInzynierska.Application.Services.User
             }
         }
 
+        public ResponseModel<string> GetUserNameById(Guid id)
+        {
+            try
+            {
+                var repoResponse = _unitOfWork.GetUserRepository.GetUserNameById(id);
+                if (repoResponse.Success)
+                    return new ResponseModel<string>
+                    {
+                        Success = repoResponse.Success,
+                        Message = repoResponse.Message,
+                        Object = repoResponse.Object
+                    };
+                else
+                    return new ResponseModel<string>
+                    {
+                        Success = repoResponse.Success,
+                        Message = repoResponse.Message
+                    };
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err, "UserService.GetUserNameById");
+                throw;
+            }
+        }
+
         public ResponseModel<UserInfoDTO> GetUserById(Guid id)
         {
             try

@@ -11,6 +11,7 @@ namespace PracaInzynierska.Application.Services.User
     public interface IUserService
     {
         public ResponseModel<IEnumerable<UserInfoDTO>> GetAllUsers();
+        public ResponseModel<string> GetUserNameById(Guid id);
         public ResponseModel<UserInfoDTO> GetUserById(Guid id);
         public ResponseModel<UserDTO> GetUserByIdForModAndAdmin(Guid id);
         public ResponseModel<UserInfoDTO> GetUserByEmail(string email);

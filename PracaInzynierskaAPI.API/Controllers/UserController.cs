@@ -55,6 +55,55 @@ namespace PracaInzynierskaAPI.API.Controllers
             return await Task.FromResult(BadRequest());    
         }
 
+        [HttpGet("GetUserById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetUserById(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var result = _service.GetUserById(id);
+                    if (result.Success)
+                        return await Task.FromResult(Ok(result));
+                    else
+                        return await Task.FromResult(BadRequest(result));
+                }
+                catch(Exception err)
+                {
+                    _logger.Error(err, "UserController.GetAllUsers");
+                    throw;
+                }
+            }
+            return await Task.FromResult(BadRequest());
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetUserNameById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetUserNameById(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var result = _service.GetUserNameById(id);
+                    if (result.Success)
+                        return await Task.FromResult(Ok(result));
+                    else
+                        return await Task.FromResult(BadRequest(result));
+                }
+                catch (Exception err)
+                {
+                    _logger.Error(err, "UserController.GetAllUsers");
+                    throw;
+                }
+            }
+            return await Task.FromResult(BadRequest());
+        }
+
         [HttpGet("GetMe")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -66,8 +115,8 @@ namespace PracaInzynierskaAPI.API.Controllers
             try
             {
                 var me = _service.GetUserById(Guid.Parse(User.Identity.Name));
-                if (me != null)
-                    return await Task.FromResult(Ok(me));
+                if (me.Object != null)
+                    return await Task.FromResult(Ok(me.Object));
                 else
                     return await Task.FromResult(Ok(null));
             }
@@ -90,7 +139,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             {
                 var me = _service.GetUserByIdForModAndAdmin(Guid.Parse(User.Identity.Name));
                 if (me != null)
-                    return await Task.FromResult(Ok(me));
+                    return await Task.FromResult(Ok(me.Object));
                 else
                     return await Task.FromResult(Ok(null));
             }

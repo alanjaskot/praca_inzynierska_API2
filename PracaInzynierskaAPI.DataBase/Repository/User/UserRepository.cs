@@ -22,6 +22,49 @@ namespace PracaInzynierskaAPI.DataBase.Repository.User
             _logger = LogManager.GetCurrentClassLogger();
         }
 
+        public ResponseModel<string> GetUserNameById(Guid id)
+        {
+            if (id == Guid.Empty)
+                return new ResponseModel<string>
+                {
+                    Success = false,
+                    Message = "Wprowadzony identyfikator jest pusty"
+                };
+
+            try
+            {
+                var result = _context.Users
+                    .Where(u => u.Id == id)
+                    .FirstOrDefault();
+
+                if (result == null)
+                    return new ResponseModel<string>
+                    {
+                        Success = true,
+                        Message = "Brak żądanych danych w bazie danych"
+                    };
+
+                if (result != null)
+                    return new ResponseModel<string>
+                    {
+                        Success = true,
+                        Message = null,
+                        Object = result.UserName
+                    };
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err, "UserRepository.GetUserNameById");
+                throw;
+            }
+
+            return new ResponseModel<string>
+            {
+                Success = true,
+                Message = "Pobieranie danych nie powiodło się"
+            };
+        }
+
         public ResponseModel<Guid> Delete(Guid id)
         {
             if (id == Guid.Empty)

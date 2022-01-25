@@ -6,9 +6,6 @@ using PracaInzynierskaAPI.Entities.Author;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracaInzynierska.Application.Services.Author
 {
@@ -324,12 +321,12 @@ namespace PracaInzynierska.Application.Services.Author
             }
         }
 
-        public ResponseModel<List<Guid>> SoftDeleteAuthors(List<AuthorDTO> authors)
+        public ResponseModel<Guid> SoftDeleteAuthor(Guid authorId)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var responseRepo = _unitOfWork.GetAuthorRepository.SoftDelete(_mapper.Map<List<AuthorDbModel>>(authors));
+                var responseRepo = _unitOfWork.GetAuthorRepository.SoftDelete(authorId);
                 if(responseRepo.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -341,7 +338,7 @@ namespace PracaInzynierska.Application.Services.Author
                     else
                     {
                         _unitOfWork.RollBackTransaction();
-                        return new ResponseModel<List<Guid>>
+                        return new ResponseModel<Guid>
                         {
                             Success = false,
                             Message = "Błąd zapisu. Wprowadzone zmiany zostaną anulowane"

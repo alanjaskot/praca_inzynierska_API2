@@ -8,7 +8,6 @@ using PracaInzynierskaAPI.API.PoliciesAndPermissions;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PracaInzynierskaAPI.API.Controllers
@@ -57,7 +56,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         {
             try
             {
-                var serviceResponse = _authorService.GetAllAuthors();
+                var serviceResponse = _authorService.GetAuthorsToApprove();
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse));
                 else
@@ -76,8 +75,11 @@ namespace PracaInzynierskaAPI.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ResponseModel<List<AuthorDTO>>>> FindAuthorsByName(string name)
         {
-            var list = default(List<string>);
-            list.AddRange(name.Split(" "));
+            var list = new List<string>();
+            if (name.Contains(','))
+                list.AddRange(name.Split(' ', ','));
+            else
+                list.Add(name);
             try
             {
                 var serviceResponse = _authorService.FindAuthorsByName(list);
@@ -141,7 +143,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateAuthor(AuthorDTO author)
+        public async Task<IActionResult> CreateAuthor([FromBody]AuthorDTO author)
         {
             if (author == null)
                 return await Task.FromResult(BadRequest());
@@ -160,12 +162,12 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Author.Approve)]
+        //[Authorize(Policy = Policies.Author.Approve)]
         [HttpPut("ApproveAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> ApproveAuthor(AuthorDTO author)
+        public async Task<IActionResult> ApproveAuthor([FromBody]AuthorDTO author)
         {
             if (author == null)
                 return await Task.FromResult(BadRequest());
@@ -197,7 +199,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             {
                 var serviceResponse = _authorService.UpdateAuthor(author);
                 if (serviceResponse.Success)
-                    return await Task.FromResult(Created("Autor został dodany", serviceResponse.Object));
+                    return await Task.FromResult(Ok(serviceResponse.Object));
                 else
                     return await Task.FromResult(BadRequest(serviceResponse));
             }
@@ -213,15 +215,15 @@ namespace PracaInzynierskaAPI.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> SoftDeleteAuthor(List<AuthorDTO> authors)
+        public async Task<IActionResult> SoftDeleteAuthor(Guid authorId)
         {
-            if (authors == null)
+            if (authorId == Guid.Empty)
                 return await Task.FromResult(BadRequest("Nie wprowadzono autora do usunięcia"));
             try
             {
-                var serviceResponse = _authorService.SoftDeleteAuthors(authors);
+                var serviceResponse = _authorService.SoftDeleteAuthor(authorId);
                 if (serviceResponse.Success)
-                    return await Task.FromResult(Created("Autor został dodany", serviceResponse.Object));
+                    return await Task.FromResult(Ok(serviceResponse.Object));
                 else
                     return await Task.FromResult(BadRequest(serviceResponse));
             }

@@ -61,7 +61,7 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Author
             try
             {
                 result = _context.Authors.Where(a => a.IsDeleted != true
-                && a.IsApproved == false).ToList();
+                && a.IsApproved != true).ToList();
                 if (result == null)
                     return new ResponseModel<List<AuthorDbModel>>
                     {
@@ -90,8 +90,8 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Author
 
         public ResponseModel<List<AuthorDbModel>> FindByName(List<string> list)
         {
-            var result = default(List<AuthorDbModel>);
-            var temp = default(List<AuthorDbModel>);
+            var result = new List<AuthorDbModel>();
+            var temp = new List<AuthorDbModel>();
             try
             {
                 foreach (var name in list)
@@ -197,8 +197,8 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Author
 
         public ResponseModel<Guid> Add(AuthorDbModel author)
         {
-            if (author.Id == Guid.Empty)
-                author.Id = Guid.NewGuid();
+            author.Id = Guid.NewGuid();
+
             try
             {
                 if (author != null)
@@ -282,42 +282,40 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Author
             };
         }
 
-        public ResponseModel<List<Guid>> SoftDelete(List<AuthorDbModel> authors)
+        public ResponseModel<Guid> SoftDelete(Guid authorId)
         {
             var list = default(List<Guid>);
             try
             {
-                foreach(var author in authors)
+                var response = GetById(authorId);
+                var author = response.Object;
+                if (author.IsDeleted == false)
                 {
-                    if (author.IsDeleted == false)
-                    {
-                        author.IsDeleted = true;
-                        author.DeletedAt = DateTime.Now;
-                        var softDelete = _context.Authors.Update(author);
-                        if (softDelete.State == EntityState.Modified)
-                            list.Add(author.Id);
-                    }
+                    author.IsDeleted = true;
+                    author.DeletedAt = DateTime.Now;
+                    var softDelete = _context.Authors.Update(author);
+                    if (softDelete.State == EntityState.Deleted)
+                        return new ResponseModel<Guid>
+                        {
+                            Success = true,
+                            Message = $"Usunięto {author.Surname} {author.Name}",
+                            Object = author.Id
+                        };
                 }
-                if (authors.Count == list.Count)
-                    return new ResponseModel<List<Guid>>
-                    {
-                        Success = true,
-                        Message = null,
-                        Object = list
-                    };
-                if (authors.Count != list.Count)
-                    return new ResponseModel<List<Guid>>
+                else
+                    return new ResponseModel<Guid>
                     {
                         Success = false,
-                        Message = "Nie wszyscy autorzy zostali usunięci. Proszę spróbować jeszcze raz",
+                        Message = "Nie udało się usunąć autora"
                     };
+
             }
             catch (Exception err)
             {
                 _logger.Error(err, "AuthorRepo.Update");
                 throw;
             }
-            return new ResponseModel<List<Guid>>
+            return new ResponseModel<Guid>
             {
                 Success = false,
                 Message = "błąd przy usuwaniu danych"

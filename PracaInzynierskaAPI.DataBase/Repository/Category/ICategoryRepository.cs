@@ -15,7 +15,7 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Category
         public ResponseModel<List<CategoryDbModel>> GetByName(List<string> list);
         public ResponseModel<Guid> Add(CategoryDbModel category);
         public ResponseModel<Guid> Update(CategoryDbModel category);
-        public ResponseModel<Guid> SoftDelete(CategoryDbModel category);
+        public ResponseModel<Guid> SoftDelete(Guid categoryId);
         public ResponseModel<Guid> Delete(Guid id);
     }
 }
