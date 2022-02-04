@@ -11,8 +11,9 @@ namespace PracaInzynierskaAPI.Entities.ImageCover
 {
     public class ImageCoverDbModel: BaseCreatedLastModifiedDeletedEntity
     {
-        public string ImageTitle { get; set; }
-        public byte[] ImageFile { get; set; }
+        public string FileName { get; set; }
+        public string FileExtension { get; set; }
+        public string FilePath { get; set; }
 
         //foreign key
         [JsonIgnore]

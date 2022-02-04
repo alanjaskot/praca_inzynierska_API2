@@ -221,16 +221,9 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Publisher
             };
         }
 
-        public ResponseModel<Guid> SoftDelete(PublisherDbModel publisher)
+        public ResponseModel<Guid> SoftDelete(Guid id)
         {
-            if (publisher == null)
-                return new ResponseModel<Guid>
-                {
-                    Success = false,
-                    Message = "Wprowadzony obiekt jest pusty"
-                };
-
-            if (publisher.Id == Guid.Empty)
+            if (id == Guid.Empty)
                 return new ResponseModel<Guid>
                 {
                     Success = false,
@@ -238,13 +231,15 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Publisher
                 };
             try
             {
+                var response = GetById(id);
+                var publisher = response.Object;
                 if (publisher != null)
                 {
                     publisher.IsDeleted = true;
                     publisher.DeletedAt = DateTime.Now;
                     publisher.PublisherName = $"Usunięto {DateTime.Now.ToString()}";
                     var softDeleted = _context.Publishers.Update(publisher);
-                    if(softDeleted.State == EntityState.Deleted)
+                    if(softDeleted.State == EntityState.Modified)
                         return new ResponseModel<Guid>
                         {
                             Success = true,

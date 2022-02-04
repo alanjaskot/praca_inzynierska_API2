@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.Book_Author;
+using PracaInzynierska.Application.Mapper.Books_AuthorMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
 using PracaInzynierskaAPI.Entities.Book_Author;
 using PracaInzynierskaAPI.Models.Response;
@@ -13,31 +13,28 @@ namespace PracaInzynierska.Application.Services.Book_Author
     public class Book_AuthorService: IBook_AuthorService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public Book_AuthorService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public Book_AuthorService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
-        /*public Book_AuthorDTO GetBook_AuthorById(Guid id)
-        {
-            var result = default(Book_AuthorDbModel);
-            try
-            {
-                result = _unitOfWork.GetBook_AuthorRepository.GetById(id);
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err, "Book_AuthorService.GetBook_AuthorById");
-                throw;
-            }
-            return _mapper.Map<Book_AuthorDTO>(result);
-        }*/
+        //public Book_AuthorDTO GetBook_AuthorById(Guid id)
+        //{
+        //    var result = new List<Book_AuthorDbModel>();
+        //    try
+        //    {
+        //        result = _unitOfWork.GetBook_AuthorRepository.GetById(id);
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        _logger.Error(err, "Book_AuthorService.GetBook_AuthorById");
+        //        throw;
+        //    }
+        //    return _mapper.Map<Book_AuthorDTO>(result);
+        //}
 
         public ResponseModel<List<Guid>> GetAllBooksByAuthor(Guid authorId)
         {
@@ -78,7 +75,7 @@ namespace PracaInzynierska.Application.Services.Book_Author
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetBook_AuthorRepository.Add(_mapper.Map<List<Book_AuthorDbModel>>(book_author));
+                var repoResponse = _unitOfWork.GetBook_AuthorRepository.Add(Book_AuthorMapper.Books_AuthorToDbModel(book_author));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

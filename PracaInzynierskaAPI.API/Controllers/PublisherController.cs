@@ -73,7 +73,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpGet("GetPublisherById")]
+        [HttpGet("GetPublisherById/{id}")]
         public async Task<IActionResult> GetPublisherById(Guid id)
         {
             try
@@ -91,7 +91,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Publisher.Write)]
+        //[Authorize(Policy = Policies.Publisher.Write)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("CreatePublisher")]
@@ -112,7 +112,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Publisher.Update)]
+        //[Authorize(Policy = Policies.Publisher.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("UpdatePublisher")]
@@ -133,15 +133,15 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Publisher.SoftDelete)]
+        //[Authorize(Policy = Policies.Publisher.SoftDelete)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("SoftDeletePublisher")]
-        public async Task<IActionResult> SoftDeletePublisher(PublisherDTO publisher)
+        [HttpDelete("SoftDeletePublisher/{id}")]
+        public async Task<IActionResult> SoftDeletePublisher(Guid id)
         {
             try
             {
-                var controllerResponse = _service.SoftDeletePublisher(publisher);
+                var controllerResponse = _service.SoftDeletePublisher(id);
                 if (controllerResponse.Success)
                     return await Task.FromResult(Ok(controllerResponse));
                 else

@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.Book_User;
+using PracaInzynierska.Application.Mapper.Books_UserMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
-using PracaInzynierskaAPI.Entities.Book_User;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
@@ -13,14 +12,11 @@ namespace PracaInzynierska.Application.Services.Book_User
     public class Book_UserService: IBook_UserService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public Book_UserService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public Book_UserService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -46,7 +42,7 @@ namespace PracaInzynierska.Application.Services.Book_User
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetBook_UserRepository.Add(_mapper.Map<Book_UserDbModel>(book_user));
+                var repoResponse = _unitOfWork.GetBook_UserRepository.Add(Book_UserMapper.Book_UserToDbModel(book_user));
                 if(repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

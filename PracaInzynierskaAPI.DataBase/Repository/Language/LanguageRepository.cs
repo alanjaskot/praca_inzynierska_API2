@@ -209,9 +209,9 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Language
             };
         }
 
-        public ResponseModel<Guid> SoftDelete(LanguageDbModel language)
+        public ResponseModel<Guid> SoftDelete(Guid id)
         {
-            if (language.Id == Guid.Empty)
+            if (id == Guid.Empty)
                 return new ResponseModel<Guid>
                 {
                     Success = false,
@@ -220,9 +220,10 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Language
 
             try
             {
+                var language = _context.Languages.Where(l => l.Id == id).FirstOrDefault();
                 if (language != null)
                 {
-                    language.Language = $"Usunięto { DateTime.Now.ToString()}";
+                    language.Language = $"Usunięto {language.Language} { DateTime.Now.ToString()}";
                     language.IsDeleted = true;
                     language.DeletedAt = DateTime.Now;
                     var softDeleted = _context.Languages.Update(language);

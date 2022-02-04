@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.Author;
+using PracaInzynierska.Application.Mapper.AuthorsMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
-using PracaInzynierskaAPI.Entities.Author;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
@@ -12,14 +11,11 @@ namespace PracaInzynierska.Application.Services.Author
     public class AuthorService: IAuthorService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public AuthorService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public AuthorService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -33,7 +29,7 @@ namespace PracaInzynierska.Application.Services.Author
                     {
                         Success = responseRepo.Success,
                         Message = responseRepo.Message,
-                        Object = _mapper.Map<List<AuthorDTO>>(responseRepo.Object)
+                        Object = AuthorMapper.AuthorsToDTO(responseRepo.Object)
                     };
                 if (responseRepo.Success == true && responseRepo.Message != null)
                     return new ResponseModel<List<AuthorDTO>>
@@ -70,7 +66,7 @@ namespace PracaInzynierska.Application.Services.Author
                     {
                         Success = responseRepo.Success,
                         Message = responseRepo.Message,
-                        Object = _mapper.Map<List<AuthorDTO>>(responseRepo.Object)
+                        Object = AuthorMapper.AuthorsToDTO(responseRepo.Object)
                     };
                 if (responseRepo.Success == true && responseRepo.Message != null)
                     return new ResponseModel<List<AuthorDTO>>
@@ -107,7 +103,7 @@ namespace PracaInzynierska.Application.Services.Author
                     {
                         Success = responseRepo.Success,
                         Message = responseRepo.Message,
-                        Object = _mapper.Map<List<AuthorDTO>>(responseRepo.Object)
+                        Object = AuthorMapper.AuthorsToDTO(responseRepo.Object)
                     };
                 if (responseRepo.Success == true && responseRepo.Message != null)
                     return new ResponseModel<List<AuthorDTO>>
@@ -144,7 +140,7 @@ namespace PracaInzynierska.Application.Services.Author
                     {
                         Success = responseRepo.Success,
                         Message = responseRepo.Message,
-                        Object = _mapper.Map<List<AuthorDTO>>(responseRepo.Object)
+                        Object = AuthorMapper.AuthorsToDTO(responseRepo.Object)
                     };
                 if (responseRepo.Success == true && responseRepo.Message != null)
                     return new ResponseModel<List<AuthorDTO>>
@@ -181,7 +177,7 @@ namespace PracaInzynierska.Application.Services.Author
                     {
                         Success = responseRepo.Success,
                         Message = responseRepo.Message,
-                        Object = _mapper.Map<AuthorDTO>(responseRepo.Object)
+                        Object = AuthorMapper.AuthorToDTO(responseRepo.Object)
                     };
                 if (responseRepo.Success == true && responseRepo.Message != null)
                     return new ResponseModel<AuthorDTO>
@@ -213,7 +209,7 @@ namespace PracaInzynierska.Application.Services.Author
             try
             {
                 _unitOfWork.BeginTransaction();
-                var responseRepo = _unitOfWork.GetAuthorRepository.Add(_mapper.Map<AuthorDbModel>(author));
+                var responseRepo = _unitOfWork.GetAuthorRepository.Add(AuthorMapper.AuthorToDbModel(author));
                 if (responseRepo.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -252,7 +248,7 @@ namespace PracaInzynierska.Application.Services.Author
             try
             {
                 _unitOfWork.BeginTransaction();
-                var responseRepo = _unitOfWork.GetAuthorRepository.Approve(_mapper.Map<AuthorDbModel>(author));
+                var responseRepo = _unitOfWork.GetAuthorRepository.Approve(AuthorMapper.AuthorToDbModel(author));
                 if(responseRepo.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -289,7 +285,7 @@ namespace PracaInzynierska.Application.Services.Author
             try
             {
                 _unitOfWork.BeginTransaction();
-                var responseRepo = _unitOfWork.GetAuthorRepository.Update(_mapper.Map<AuthorDbModel>(author));
+                var responseRepo = _unitOfWork.GetAuthorRepository.Update(AuthorMapper.AuthorToDbModel(author));
                 if (responseRepo.Success)
                 {
                     var save = _unitOfWork.Save();

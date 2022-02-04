@@ -110,22 +110,21 @@ namespace PracaInzynierskaAPI.DataBase.Repository.User
             };
         }
        
-        public ResponseModel<IEnumerable<UserDbModel>> GetAll()
+        public ResponseModel<List<UserDbModel>> GetAll()
         {
-            var result = default(IEnumerable<UserDbModel>);
+            var result = default(List<UserDbModel>);
             try
             {
-                result =  _context.Users
-                    .Where(u => u.DeletedAt == null && u.IsDeleted != true);
+                result =  _context.Users.Where(u => u.IsDeleted != true && u.IsDeleted != true && u.Banned != true).ToList() ;
                 if (result == null)
-                    return new ResponseModel<IEnumerable<UserDbModel>>
+                    return new ResponseModel<List<UserDbModel>>
                     {
                         Success = true,
                         Message = "Brak żądanych danych w bazie danych"
                     };
 
                 if (result != null)
-                    return new ResponseModel<IEnumerable<UserDbModel>>
+                    return new ResponseModel<List<UserDbModel>>
                     {
                         Success = true,
                         Message = null,
@@ -137,7 +136,7 @@ namespace PracaInzynierskaAPI.DataBase.Repository.User
                 _logger.Error(err, "UserRepository.etAll");
                 throw;
             }
-            return new ResponseModel<IEnumerable<UserDbModel>>
+            return new ResponseModel<List<UserDbModel>>
             {
                 Success = true,
                 Message = "Pobieranie danych nie powiodło się"

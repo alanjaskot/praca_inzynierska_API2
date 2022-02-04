@@ -15,6 +15,6 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Language
         public ResponseModel<List<LanguageDbModel>> GetByName(string name);
         public ResponseModel<Guid> Add(LanguageDbModel language);
         public ResponseModel<Guid> Update(LanguageDbModel language);
-        public ResponseModel<Guid> SoftDelete(LanguageDbModel language);
+        public ResponseModel<Guid> SoftDelete(Guid id);
     }
 }

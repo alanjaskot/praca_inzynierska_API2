@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using PracaInzynierska.Application.Services.User;
 using PracaInzynierska.Application.Services.UserPermission;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,12 +10,12 @@ namespace PracaInzynierskaAPI.API.PoliciesAndPermissions
 {
     public class PermissionHandler : IAuthorizationHandler
     {
-        private readonly IUserPermissionService permitsService;
+        private readonly IUserPermissionService permissionService;
         private readonly IUserService userService;
         public PermissionHandler()
         {
             var container = Startup.Container;
-            this.permitsService = container.Resolve<IUserPermissionService>();
+            this.permissionService = container.Resolve<IUserPermissionService>();
             this.userService = container.Resolve<IUserService>();
 
         }
@@ -39,7 +38,7 @@ namespace PracaInzynierskaAPI.API.PoliciesAndPermissions
                     if (userFromDB == null)
                         break;
 
-                    var perrFormDB = permitsService.GetAllPermissionsByUserGuid(userFromDB.Id).Object.Where(p => p.PermissionName == requiredPermission).FirstOrDefault();
+                    var perrFormDB = permissionService.GetAllPermissionsByUserGuid(userFromDB.Id).Object.Where(p => p.PermissionName == requiredPermission).FirstOrDefault();
                     if (perrFormDB == null)
                         break;
 

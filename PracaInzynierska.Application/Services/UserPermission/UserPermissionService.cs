@@ -1,28 +1,23 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.UserPermission;
+using PracaInzynierska.Application.Mapper.UserPermissionsMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
 using PracaInzynierskaAPI.Entities.UserPermission;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PracaInzynierska.Application.Services.UserPermission
 {
     public class UserPermissionService: IUserPermissionService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public UserPermissionService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public UserPermissionService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -36,7 +31,7 @@ namespace PracaInzynierska.Application.Services.UserPermission
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<UserPermissionDTO>>(repoResponse.Object)
+                        Object = UserPermissionMapper.UserPermissionsToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<UserPermissionDTO>>
@@ -62,7 +57,7 @@ namespace PracaInzynierska.Application.Services.UserPermission
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<UserPermissionDTO>(repoResponse.Object)
+                        Object = UserPermissionMapper.UserPermissionToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<UserPermissionDTO>
@@ -83,7 +78,7 @@ namespace PracaInzynierska.Application.Services.UserPermission
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetUserPermissionRepository.AddAllByUserGuid(_mapper.Map<List<UserPermissionDbModel>>(permisions));
+                var repoResponse = _unitOfWork.GetUserPermissionRepository.AddAllByUserGuid(UserPermissionMapper.UserPermissionsToDbModel(permisions));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -147,7 +142,7 @@ namespace PracaInzynierska.Application.Services.UserPermission
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetUserPermissionRepository.DeleteAllByUserGuid(_mapper.Map<List<UserPermissionDbModel>>(permisions));
+                var repoResponse = _unitOfWork.GetUserPermissionRepository.DeleteAllByUserGuid(UserPermissionMapper.UserPermissionsToDbModel(permisions));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

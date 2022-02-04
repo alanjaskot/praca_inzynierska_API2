@@ -27,7 +27,6 @@ D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\obj\Debug\net5.0\ref\PracaInz
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\obj\Debug\net5.0\PracaInzynierskaAPI.API.pdb
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\obj\Debug\net5.0\PracaInzynierskaAPI.API.genruntimeconfig.cache
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\NLog.config
-D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\AutoMapper.dll
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -140,3 +139,8 @@ D:\inz\PracaInzynierskaAPI\praca_inzynierska_API\PracaInzynierskaAPI.API\obj\Deb
 D:\inz\PracaInzynierskaAPI\praca_inzynierska_API\PracaInzynierskaAPI.API\obj\Debug\net5.0\PracaInzynierskaAPI.API.RazorTargetAssemblyInfo.cache
 D:\inz\PracaInzynierskaAPI\praca_inzynierska_API\PracaInzynierskaAPI.API\obj\Debug\net5.0\PracaInzynierskaAPI.API.csproj.CopyComplete
 D:\inz\PracaInzynierskaAPI\praca_inzynierska_API\PracaInzynierskaAPI.API\obj\Debug\net5.0\PracaInzynierskaAPI.API.genruntimeconfig.cache
+D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\System.Web.Http.dll
+D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+D:\inz\PracaInzynierskaAPI\PracaInzynierskaAPI.API\bin\Debug\net5.0\System.IO.Pipelines.dll

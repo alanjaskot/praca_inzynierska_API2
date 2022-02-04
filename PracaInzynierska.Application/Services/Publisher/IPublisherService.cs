@@ -15,6 +15,6 @@ namespace PracaInzynierska.Application.Services.Publisher
         public ResponseModel<PublisherDTO> GetPublisherById(Guid id);
         public ResponseModel<Guid> AddPublisher(PublisherDTO publisher);
         public ResponseModel<Guid> UpdatePublisher(PublisherDTO publisher);
-        public ResponseModel<Guid> SoftDeletePublisher(PublisherDTO publisher);
+        public ResponseModel<Guid> SoftDeletePublisher(Guid id);
     }
 }

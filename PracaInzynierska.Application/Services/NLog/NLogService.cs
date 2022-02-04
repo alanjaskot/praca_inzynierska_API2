@@ -1,25 +1,19 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
 using PracaInzynierskaAPI.Entities.NLog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracaInzynierska.Application.Services.NLog
 {
     public class NLogService: INLogService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public NLogService(IUnitOfWork unitOfWork, IMapper mapper)
+        public NLogService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 

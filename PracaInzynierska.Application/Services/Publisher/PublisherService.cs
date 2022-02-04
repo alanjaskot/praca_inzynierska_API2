@@ -1,14 +1,12 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.Publisher;
+using PracaInzynierska.Application.Mapper.PublishersMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
 using PracaInzynierskaAPI.Entities.Publisher;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PracaInzynierska.Application.Services.Publisher
 {
@@ -16,12 +14,10 @@ namespace PracaInzynierska.Application.Services.Publisher
     {
         private readonly IUnitOfWork _unitOfWork;
         private static ILogger _logger;
-        private static IMapper _mapper;
 
-        public PublisherService(IUnitOfWork unitOfWork, IMapper mapper)
+        public PublisherService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -35,7 +31,7 @@ namespace PracaInzynierska.Application.Services.Publisher
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<PublisherDTO>>(repoResponse.Object)
+                        Object = PublisherMapper.PublishersToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<PublisherDTO>>
@@ -61,7 +57,7 @@ namespace PracaInzynierska.Application.Services.Publisher
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<PublisherDTO>>(repoResponse.Object)
+                        Object = PublisherMapper.PublishersToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<PublisherDTO>>
@@ -82,13 +78,21 @@ namespace PracaInzynierska.Application.Services.Publisher
             try
             {
                 var repoResponse = _unitOfWork.GetPublisherRepository.GetById(id);
-                if (repoResponse.Success)
+                if (repoResponse.Success && repoResponse.Object != null)
                     return new ResponseModel<PublisherDTO>
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<PublisherDTO>(repoResponse.Object)
+                        Object = PublisherMapper.PublisherToDTO(repoResponse.Object)
                     };
+                else if (repoResponse.Success && repoResponse.Object == null)
+                {
+                    return new ResponseModel<PublisherDTO>
+                    {
+                        Success = repoResponse.Success,
+                        Message = repoResponse.Message
+                    };
+                }
                 else
                     return new ResponseModel<PublisherDTO>
                     {
@@ -108,7 +112,7 @@ namespace PracaInzynierska.Application.Services.Publisher
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetPublisherRepository.Add(_mapper.Map<PublisherDbModel>(publisher));
+                var repoResponse = _unitOfWork.GetPublisherRepository.Add(PublisherMapper.PublisherToDbModel(publisher));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -146,7 +150,7 @@ namespace PracaInzynierska.Application.Services.Publisher
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetPublisherRepository.Update(_mapper.Map<PublisherDbModel>(publisher));
+                var repoResponse = _unitOfWork.GetPublisherRepository.Update(PublisherMapper.PublisherToDbModel(publisher));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -179,12 +183,12 @@ namespace PracaInzynierska.Application.Services.Publisher
             }
         }
 
-        public ResponseModel<Guid> SoftDeletePublisher(PublisherDTO publisher)
+        public ResponseModel<Guid> SoftDeletePublisher(Guid id)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetPublisherRepository.SoftDelete(_mapper.Map<PublisherDbModel>(publisher));
+                var repoResponse = _unitOfWork.GetPublisherRepository.SoftDelete(id);
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

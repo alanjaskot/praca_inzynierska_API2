@@ -11,7 +11,7 @@ namespace PracaInzynierskaAPI.DataBase.Repository.User
     public interface IUserRepository
     {
         
-        public ResponseModel<IEnumerable<UserDbModel>> GetAll();
+        public ResponseModel<List<UserDbModel>> GetAll();
         public ResponseModel<UserDbModel> GetById(Guid id);
         public ResponseModel<string> GetUserNameById(Guid id);
         public ResponseModel<UserDbModel> GetByEmail(string email);

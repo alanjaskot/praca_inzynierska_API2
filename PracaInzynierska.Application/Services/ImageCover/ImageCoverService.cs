@@ -1,28 +1,21 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.ImageCover;
+using PracaInzynierska.Application.Mapper.ImageCoversMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
-using PracaInzynierskaAPI.Entities.ImageCover;
 using PracaInzynierskaAPI.Models.Response;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PracaInzynierska.Application.Services.ImageCover
 {
     public class ImageCoverService: IImageCoverService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public ImageCoverService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public ImageCoverService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -36,7 +29,7 @@ namespace PracaInzynierska.Application.Services.ImageCover
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<ImageCoverDTO>(repoResponse.Object)
+                        Object = ImageCoverMapper.ImageCoverToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<ImageCoverDTO>
@@ -57,7 +50,7 @@ namespace PracaInzynierska.Application.Services.ImageCover
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetImageCoverRepository.Add(_mapper.Map<ImageCoverDbModel>(imageCover));
+                var repoResponse = _unitOfWork.GetImageCoverRepository.Add(ImageCoverMapper.ImageCoverToDbModel(imageCover));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -95,7 +88,7 @@ namespace PracaInzynierska.Application.Services.ImageCover
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetImageCoverRepository.Update(_mapper.Map<ImageCoverDbModel>(imageCover));
+                var repoResponse = _unitOfWork.GetImageCoverRepository.Update(ImageCoverMapper.ImageCoverToDbModel(imageCover));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

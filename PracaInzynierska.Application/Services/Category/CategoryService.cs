@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.Category;
+using PracaInzynierska.Application.Mapper.CategoriesMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
-using PracaInzynierskaAPI.Entities.Category;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracaInzynierska.Application.Services.Category
 {
@@ -16,13 +12,10 @@ namespace PracaInzynierska.Application.Services.Category
     {
         private readonly IUnitOfWork _unitOfWork;
         private ILogger _logger;
-        private static IMapper _mapper;
 
-        public CategoryService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public CategoryService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -36,7 +29,7 @@ namespace PracaInzynierska.Application.Services.Category
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<CategoryDTO>>(repoResponse.Object)
+                        Object = CategoryMapper.CategoriesToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<CategoryDTO>>
@@ -62,7 +55,7 @@ namespace PracaInzynierska.Application.Services.Category
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<CategoryDTO>(repoResponse.Object)
+                        Object = CategoryMapper.CategoryToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<CategoryDTO>
@@ -88,7 +81,7 @@ namespace PracaInzynierska.Application.Services.Category
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<CategoryDTO>>(repoResponse.Object)
+                        Object = CategoryMapper.CategoriesToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<CategoryDTO>>
@@ -109,7 +102,7 @@ namespace PracaInzynierska.Application.Services.Category
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetCategoryRepository.Add(_mapper.Map<CategoryDbModel>(category));
+                var repoResponse = _unitOfWork.GetCategoryRepository.Add(CategoryMapper.CategoryToDbModel(category));
                 if(repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -147,7 +140,7 @@ namespace PracaInzynierska.Application.Services.Category
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetCategoryRepository.Update(_mapper.Map<CategoryDbModel>(category));
+                var repoResponse = _unitOfWork.GetCategoryRepository.Update(CategoryMapper.CategoryToDbModel(category));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

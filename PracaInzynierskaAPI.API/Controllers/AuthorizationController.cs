@@ -1,16 +1,12 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using PracaInzynierska.Application.DTO.User;
 using PracaInzynierska.Application.Services.User;
-using PracaInzynierskaAPI.API.JWT;
 using PracaInzynierskaAPI.API.JWT.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PracaInzynierskaAPI.API.Controllers
@@ -24,16 +20,14 @@ namespace PracaInzynierskaAPI.API.Controllers
         private readonly IUserService _service;
         private IJwtService _tokenService;
         private ILogger _logger;
-        private static IMapper _mapper;
+
 
         public AuthorizationController(IUserService service,
-            IJwtService tokenService,
-            IMapper mapper)
+            IJwtService tokenService)
         {
             _tokenService = tokenService;
             _service = service;
             _logger = LogManager.GetCurrentClassLogger();
-            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -56,11 +50,11 @@ namespace PracaInzynierskaAPI.API.Controllers
                     if (checkingEmail.Success)
                         isEmailExists = true;
 
-                    if(isUserNameExist == false && isEmailExists == false )
-                        return await Task.FromResult(BadRequest ("błędny użytkownik lub hasło"));
-
                     var loginResponse = _service.Login(login.Login, login.Password);
-                    
+
+                    if ((isUserNameExist == false && isEmailExists == false) || !loginResponse.Success)
+                        return await Task.FromResult(BadRequest("błędny użytkownik lub hasło"));
+
                     if (loginResponse.Success)
                     {
                         var token = await _tokenService.CreateToken(loginResponse.Object.Id);

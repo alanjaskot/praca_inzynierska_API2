@@ -51,7 +51,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Book.Approve)]
+        //[Authorize(Policy = Policies.Book.Approve)]
         [HttpGet("GetBooksToAprrove")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -218,7 +218,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetBookById")]
+        [HttpGet("GetBookById/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetBookById(Guid id)
@@ -229,7 +229,7 @@ namespace PracaInzynierskaAPI.API.Controllers
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse));
                 else
-                    return await Task.FromResult(BadRequest(serviceResponse));
+                    return await Task.FromResult(Ok(serviceResponse));
             }
             catch (Exception err)
             {
@@ -275,7 +275,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Book.Approve)]
+        //[Authorize(Policy = Policies.Book.Approve)]
         [HttpPut("ApproveBooks")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -300,7 +300,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Book.Update)]
+        //[Authorize(Policy = Policies.Book.Update)]
         [HttpPut("UpdateBook")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -325,7 +325,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Book.SoftDelete)]
+        //[Authorize(Policy = Policies.Book.SoftDelete)]
         [HttpDelete("SoftDeleteBooks")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -356,7 +356,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Book.Delete)]
+        //[Authorize(Policy = Policies.Book.Delete)]
         [HttpDelete("DeleteBook")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

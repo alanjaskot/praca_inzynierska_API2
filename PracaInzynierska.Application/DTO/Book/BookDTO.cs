@@ -1,9 +1,5 @@
 ﻿using PracaInzynierskaAPI.Core.Abstraction;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracaInzynierska.Application.DTO.Book
 {
@@ -15,7 +11,7 @@ namespace PracaInzynierska.Application.DTO.Book
         public string Description { get; set; }
         public long Likes { get; set; }
         public long Dislikes { get; set; }
-        public decimal LikesPercentage { get; }
+        public decimal LikesPercentage { get; set; }
         public bool Approved { get; set; }
 
 

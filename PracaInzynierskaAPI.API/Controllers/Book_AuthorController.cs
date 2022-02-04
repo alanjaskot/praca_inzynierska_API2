@@ -50,16 +50,16 @@ namespace PracaInzynierskaAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetAllAuthorsByBook")]
+        [HttpGet("GetAllAuthorsByBook/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetAllAuthorsByBook(Guid bookId)
+        public async Task<IActionResult> GetAllAuthorsByBook(Guid id)
         {
-            if (bookId == Guid.Empty)
+            if (id == Guid.Empty)
                 return await Task.FromResult(BadRequest());
             try
             {
-                var serviceResponse = _service.GetAllBooksByAuthor(bookId);
+                var serviceResponse = _service.GetAllBooksByAuthor(id);
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse));
                 else

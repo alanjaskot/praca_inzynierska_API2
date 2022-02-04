@@ -50,7 +50,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetCategoryById")]
+        [HttpGet("GetCategoryById/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -96,7 +96,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             return await Task.FromResult(BadRequest());
         }
 
-        [Authorize(Policy = Policies.Category.Write)]
+        //[Authorize(Policy = Policies.Category.Write)]
         [HttpPost("CreateCategory")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -120,7 +120,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             return await Task.FromResult(BadRequest());
         }
 
-        [Authorize(Policy = Policies.Category.Update)]
+        //[Authorize(Policy = Policies.Category.Update)]
         [HttpPut("UpdateCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -142,15 +142,15 @@ namespace PracaInzynierskaAPI.API.Controllers
             return await Task.FromResult(BadRequest());
         }
 
-        [Authorize(Policy = Policies.Category.SoftDelete)]
+        //[Authorize(Policy = Policies.Category.SoftDelete)]
         [HttpDelete("SoftDeleteCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SoftDeleteCategory(Guid categoryId)
+        public async Task<IActionResult> SoftDeleteCategory(Guid id)
         {
             try
             {
-                var serviceResponse = _service.SoftDeleteCategory(categoryId);
+                var serviceResponse = _service.SoftDeleteCategory(id);
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse));
                 else
@@ -164,7 +164,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             return await Task.FromResult(BadRequest());
         }
 
-        [Authorize(Policy = Policies.Category.Delete)]
+        //[Authorize(Policy = Policies.Category.Delete)]
         [HttpDelete("DeleteCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

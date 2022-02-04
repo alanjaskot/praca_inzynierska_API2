@@ -47,7 +47,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Author.Approve)]
+        //[Authorize(Policy = Policies.Author.Approve)]
         [HttpGet("GetAuthorsToApprove")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -96,14 +96,21 @@ namespace PracaInzynierskaAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetAuthorsByIds")]
+        [HttpGet("GetAuthorsByIds/{ids}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResponseModel<List<AuthorDTO>>>> GetAuthorsByIds(List<Guid> list)
+        public async Task<ActionResult<ResponseModel<List<AuthorDTO>>>> GetAuthorsByIds(string ids)
         {
+            var tempList = new List<string>();
+            tempList.AddRange(ids.Split(','));
+            var idList = new List<Guid>();
+            foreach(string item in tempList)
+            {
+                idList.Add(Guid.Parse(item));
+            }
             try
             {
-                var serviceResponse = _authorService.GetAuthorsByIds(list);
+                var serviceResponse = _authorService.GetAuthorsByIds(idList);
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse));
                 else
@@ -117,7 +124,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetById")]
+        [HttpGet("GetById/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ResponseModel<AuthorDTO>>> GetAuthorById(Guid id)
@@ -186,7 +193,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Author.Update)]
+        //[Authorize(Policy = Policies.Author.Update)]
         [HttpPut("UpdateAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -210,18 +217,18 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Author.SoftDelete)]
+        //[Authorize(Policy = Policies.Author.SoftDelete)]
         [HttpDelete("SoftDeleteAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> SoftDeleteAuthor(Guid authorId)
+        public async Task<IActionResult> SoftDeleteAuthor(Guid id)
         {
-            if (authorId == Guid.Empty)
+            if (id == Guid.Empty)
                 return await Task.FromResult(BadRequest("Nie wprowadzono autora do usunięcia"));
             try
             {
-                var serviceResponse = _authorService.SoftDeleteAuthor(authorId);
+                var serviceResponse = _authorService.SoftDeleteAuthor(id);
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse.Object));
                 else
@@ -234,7 +241,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Author.Delete)]
+        //[Authorize(Policy = Policies.Author.Delete)]
         [HttpDelete("DeleteAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

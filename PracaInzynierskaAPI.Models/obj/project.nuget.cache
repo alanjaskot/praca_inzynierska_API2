@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "XfuaN5FqdgjEDh9+1IoFZT9sp81lHzfRcMtX7AZBWUsq25uwoCmnnTYD64mtuOrwi7yyzGfWBTBt5u6Z3QMOsg==",
+  "dgSpecHash": "9zCpcxbz1VGRuEChZrPIxo9KznBMdVhW58GnYzv5SEg6EUEvEWPPh6ghjV1sdkIUmXK+erZ26fZqu/y3n7MQYA==",
   "success": true,
   "projectFilePath": "D:\\inz\\PracaInzynierskaAPI\\PracaInzynierskaAPI.Models\\PracaInzynierskaAPI.Models.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\eatus\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.13\\microsoft.aspnetcore.http.features.5.0.13.nupkg.sha512",
+    "C:\\Users\\eatus\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\eatus\\.nuget\\packages\\system.io.pipelines\\5.0.1\\system.io.pipelines.5.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

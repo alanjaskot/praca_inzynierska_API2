@@ -13,8 +13,9 @@ namespace PracaInzynierskaAPI.DataBase.EntitiesConfig.ImageCover
     {
         public void Configure(EntityTypeBuilder<ImageCoverDbModel> builder)
         {
-            builder.Property(ic => ic.ImageTitle).IsRequired(true);
-            builder.Property(ic => ic.ImageFile).IsRequired(true);
+            builder.Property(ic => ic.FileName).IsRequired(true);
+            builder.Property(ic => ic.FilePath).IsRequired(true);
+            builder.Property(ic => ic.FileExtension).IsRequired(true);
         }
     }
 }

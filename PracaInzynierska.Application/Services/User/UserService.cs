@@ -1,45 +1,39 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.User;
+using PracaInzynierska.Application.Mapper.UsersMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
-using PracaInzynierskaAPI.Entities.User;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PracaInzynierska.Application.Services.User
 {
     public class UserService: IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public UserService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
-        public ResponseModel<IEnumerable<UserInfoDTO>> GetAllUsers()
+        public ResponseModel<List<UserInfoDTO>> GetAllUsers()
         {
             try
             {
                 var repoResponse = _unitOfWork.GetUserRepository.GetAll();
                 if (repoResponse.Success)
-                    return new ResponseModel<IEnumerable<UserInfoDTO>>
+                    return new ResponseModel<List<UserInfoDTO>>
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<IEnumerable<UserInfoDTO>>(repoResponse.Object)
+                        Object = UserInfoMapper.UsersInfoToDTO(repoResponse.Object)
                     };
                 else
-                    return new ResponseModel<IEnumerable<UserInfoDTO>>
+                    return new ResponseModel<List<UserInfoDTO>>
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message
@@ -88,7 +82,7 @@ namespace PracaInzynierska.Application.Services.User
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<UserInfoDTO>(repoResponse.Object)
+                        Object = UserInfoMapper.UserInfoToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<UserInfoDTO>
@@ -114,7 +108,7 @@ namespace PracaInzynierska.Application.Services.User
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<UserDTO>(repoResponse.Object)
+                        Object = UserMapper.UserToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<UserDTO>
@@ -141,7 +135,7 @@ namespace PracaInzynierska.Application.Services.User
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<UserInfoDTO>(repoResponse.Object)
+                        Object = UserInfoMapper.UserInfoToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<UserInfoDTO>
@@ -167,7 +161,7 @@ namespace PracaInzynierska.Application.Services.User
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<UserInfoDTO>(repoResponse.Object)
+                        Object = UserInfoMapper.UserInfoToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<UserInfoDTO>
@@ -193,7 +187,7 @@ namespace PracaInzynierska.Application.Services.User
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<UserDTO>(repoResponse.Object)
+                        Object = UserMapper.UserToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<UserDTO>
@@ -209,12 +203,12 @@ namespace PracaInzynierska.Application.Services.User
             }
         }
 
-        public ResponseModel<Guid> AddUser(UserDTO userModel)
+        public ResponseModel<Guid> AddUser(UserDTO user)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetUserRepository.Add(_mapper.Map<UserDbModel>(userModel));
+                var repoResponse = _unitOfWork.GetUserRepository.Add(UserMapper.UserToDbModel(user));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -247,12 +241,12 @@ namespace PracaInzynierska.Application.Services.User
             }
         }
 
-        public ResponseModel<Guid> UpdateUser(UserDTO userModel)
+        public ResponseModel<Guid> UpdateUser(UserDTO user)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetUserRepository.Update(_mapper.Map<UserDbModel>(userModel));
+                var repoResponse = _unitOfWork.GetUserRepository.Update(UserMapper.UserToDbModel(user));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -285,12 +279,12 @@ namespace PracaInzynierska.Application.Services.User
             }
         }
 
-        public ResponseModel<bool> BanUser(UserDTO userModel)
+        public ResponseModel<bool> BanUser(UserDTO user)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetUserRepository.Ban(_mapper.Map<UserDbModel>(userModel));
+                var repoResponse = _unitOfWork.GetUserRepository.Ban(UserMapper.UserToDbModel(user));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

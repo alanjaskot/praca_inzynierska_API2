@@ -15,6 +15,6 @@ namespace PracaInzynierska.Application.Services.Language
         public ResponseModel<List<LanguageDTO>> GetLanguageByName(string name);
         public ResponseModel<Guid> AddLanguage(LanguageDTO language);
         public ResponseModel<Guid> UpdateLanguage(LanguageDTO language);
-        public ResponseModel<Guid> SoftDeleteLanguage(LanguageDTO language);
+        public ResponseModel<Guid> SoftDeleteLanguage(Guid id);
     }
 }

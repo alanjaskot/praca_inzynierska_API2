@@ -28,7 +28,6 @@ using PracaInzynierska.Application.Services.NLog;
 using PracaInzynierska.Application.Services.Publisher;
 using PracaInzynierska.Application.Services.User;
 using PracaInzynierska.Application.Services.UserPermission;
-using PracaInzynierska.Application.Mapper;
 using Microsoft.EntityFrameworkCore;
 using PracaInzynierskaAPI.DataBase.Repository.User;
 using PracaInzynierskaAPI.DataBase.Repository.UserPermission;
@@ -60,10 +59,7 @@ namespace PracaInzynierskaAPI.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PInzDataBaseContext>(options => options
-            .UseNpgsql("Host=localhost;Port=1511;Database=p_inz;Username=admin;Password=postgres "));
-
-            services.AddSingleton(AutoMapperConfig.InitMap());
-            
+            .UseNpgsql("Host=localhost;Port=1511;Database=p_inz;Username=admin;Password=postgres "));          
 
             services.AddScoped<IPInzDataBaseContext, PInzDataBaseContext>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
@@ -95,7 +91,7 @@ namespace PracaInzynierskaAPI.API
 
             services.AddControllers();
 
-            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+            
 
             services.AddCors(options =>
             {
@@ -112,13 +108,15 @@ namespace PracaInzynierskaAPI.API
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
 
-            services.AddAuthorization(options =>
-            {
-                PolicesAndPermisionsInitiator.Init(options);
-                options.FallbackPolicy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    PolicesAndPermisionsInitiator.Init(options);
+            //    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+            //        .RequireAuthenticatedUser()
+            //        .Build();
+            //});
+
+            //services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
 
             services.AddSwaggerGen(c =>
             {

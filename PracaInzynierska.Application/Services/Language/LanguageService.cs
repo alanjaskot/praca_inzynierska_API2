@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.Language;
+using PracaInzynierska.Application.Mapper.LanguagesMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
 using PracaInzynierskaAPI.Entities.Language;
 using PracaInzynierskaAPI.Models.Response;
@@ -16,12 +16,10 @@ namespace PracaInzynierska.Application.Services.Language
     {
         private readonly IUnitOfWork _unitOfWork;
         private static ILogger _logger;
-        private static IMapper _mapper;
 
-        public LanguageService(IUnitOfWork unitOfWork, IMapper mapper)
+        public LanguageService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -35,7 +33,7 @@ namespace PracaInzynierska.Application.Services.Language
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<LanguageDTO>>(repoResponse.Object)
+                        Object = LanguageMapper.LanguagesToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<LanguageDTO>>
@@ -61,7 +59,7 @@ namespace PracaInzynierska.Application.Services.Language
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<LanguageDTO>>(repoResponse.Object)
+                        Object = LanguageMapper.LanguagesToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<LanguageDTO>>
@@ -87,7 +85,7 @@ namespace PracaInzynierska.Application.Services.Language
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<LanguageDTO>(repoResponse.Object)
+                        Object = LanguageMapper.LanguageToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<LanguageDTO>
@@ -108,7 +106,7 @@ namespace PracaInzynierska.Application.Services.Language
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetLanguageRepository.Add(_mapper.Map<LanguageDbModel>(language));
+                var repoResponse = _unitOfWork.GetLanguageRepository.Add(LanguageMapper.LanguageToDbModel(language));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -146,7 +144,7 @@ namespace PracaInzynierska.Application.Services.Language
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetLanguageRepository.Update(_mapper.Map<LanguageDbModel>(language));
+                var repoResponse = _unitOfWork.GetLanguageRepository.Update(LanguageMapper.LanguageToDbModel(language));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -179,12 +177,12 @@ namespace PracaInzynierska.Application.Services.Language
             }
         }
 
-        public ResponseModel<Guid> SoftDeleteLanguage(LanguageDTO language)
+        public ResponseModel<Guid> SoftDeleteLanguage(Guid id)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetLanguageRepository.SoftDelete(_mapper.Map<LanguageDbModel>(language));
+                var repoResponse = _unitOfWork.GetLanguageRepository.SoftDelete(id);
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

@@ -5,10 +5,14 @@ using NLog;
 using PracaInzynierska.Application.DTO.ImageCover;
 using PracaInzynierska.Application.Services.ImageCover;
 using PracaInzynierskaAPI.API.PoliciesAndPermissions;
+using PracaInzynierskaAPI.Models.Response;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using PracaInzynierskaAPI.Models.FIleRecords;
+using System.IO;
+using System.Collections.Generic;
+using PracaInzynierskaAPI.Models.ImageFiles;
+using Microsoft.AspNetCore.Hosting;
 
 namespace PracaInzynierskaAPI.API.Controllers
 {
@@ -17,12 +21,17 @@ namespace PracaInzynierskaAPI.API.Controllers
     [ApiController]
     public class ImageCoverController : ControllerBase
     {
+        private readonly string AppDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Resources");
+        private static List<ImageCoverDTO> fileDb = new List<ImageCoverDTO>();
         private readonly IImageCoverService _service;
+        private IHostingEnvironment _hostingEnvironment;
         private ILogger _logger;
 
-        public ImageCoverController(IImageCoverService service)
+        public ImageCoverController(IImageCoverService service,
+            IHostingEnvironment hostingEnviroment)
         {
             _service = service;
+            _hostingEnvironment = hostingEnviroment;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -50,23 +59,22 @@ namespace PracaInzynierskaAPI.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("CreateImageCover")]
-        public async Task<IActionResult> CreateImageCover(ImageCoverDTO imageCover)
+        public async Task<IActionResult> CreateImageCover(IFormFile image)
         {
-            if (imageCover == null)
-                return await Task.FromResult(BadRequest());
-            try
+            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+            if (!Directory.Exists(uploads))
             {
-                var serviceResponse = _service.AddImageCover(imageCover);
-                if (serviceResponse.Success)
-                    return await Task.FromResult(Created("okładka została dodana", serviceResponse.Object));
-                else
-                    return await Task.FromResult(BadRequest(serviceResponse));
+                Directory.CreateDirectory(uploads);
             }
-            catch (Exception err)
+            if (image.Length > 0)
             {
-                _logger.Error(err, "ImageControllerController.CreateImageCover");
-                throw;
+                var filePath = Path.Combine(uploads, image.FileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
             }
+            return Ok();
         }
 
         [Authorize(Policy = Policies.ImageCover.Update)]

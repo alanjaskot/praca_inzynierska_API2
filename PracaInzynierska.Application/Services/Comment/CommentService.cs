@@ -1,28 +1,22 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.Comment;
+using PracaInzynierska.Application.Mapper.CommentsMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
-using PracaInzynierskaAPI.Entities.Comment;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PracaInzynierska.Application.Services.Comment
 {
     public class CommentService: ICommentService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public CommentService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public CommentService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -36,7 +30,7 @@ namespace PracaInzynierska.Application.Services.Comment
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<CommentDTO>>(repoResponse.Object)
+                        Object = CommentMapper.CommentsToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<CommentDTO>>
@@ -62,7 +56,7 @@ namespace PracaInzynierska.Application.Services.Comment
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<CommentDTO>>(repoResponse.Object)
+                        Object = CommentMapper.CommentsToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<CommentDTO>>
@@ -88,7 +82,7 @@ namespace PracaInzynierska.Application.Services.Comment
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<CommentDTO>>(repoResponse.Object)
+                        Object =  CommentMapper.CommentsToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<List<CommentDTO>>
@@ -114,7 +108,7 @@ namespace PracaInzynierska.Application.Services.Comment
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<CommentDTO>(repoResponse.Object)
+                        Object = CommentMapper.CommentToDTO(repoResponse.Object)
                     };
                 else
                     return new ResponseModel<CommentDTO>
@@ -135,7 +129,7 @@ namespace PracaInzynierska.Application.Services.Comment
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetCommentRepository.Add(_mapper.Map<CommentDbModel>(comment));
+                var repoResponse = _unitOfWork.GetCommentRepository.Add(CommentMapper.CommentToDbModel(comment));
                 if(repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -174,7 +168,7 @@ namespace PracaInzynierska.Application.Services.Comment
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetCommentRepository.Update(_mapper.Map<CommentDbModel>(comment));
+                var repoResponse = _unitOfWork.GetCommentRepository.Update(CommentMapper.CommentToDbModel(comment));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -212,7 +206,7 @@ namespace PracaInzynierska.Application.Services.Comment
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetCommentRepository.SoftDelete(_mapper.Map<CommentDbModel>(comment));
+                var repoResponse = _unitOfWork.GetCommentRepository.SoftDelete(CommentMapper.CommentToDbModel(comment));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();

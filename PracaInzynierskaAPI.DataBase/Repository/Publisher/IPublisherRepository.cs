@@ -15,6 +15,6 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Publisher
         public ResponseModel<PublisherDbModel> GetById(Guid id);
         public ResponseModel<Guid> Add(PublisherDbModel publisher);
         public ResponseModel<Guid> Update(PublisherDbModel publisher);
-        public ResponseModel<Guid> SoftDelete(PublisherDbModel publisher);
+        public ResponseModel<Guid> SoftDelete(Guid id);
     }
 }

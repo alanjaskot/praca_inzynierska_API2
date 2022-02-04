@@ -38,7 +38,7 @@ namespace PracaInzynierskaAPI.API.Controllers
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse));
                 else
-                    return await Task.FromResult(BadRequest(serviceResponse));
+                    return await Task.FromResult(Ok(serviceResponse));
             }
             catch (Exception err)
             {
@@ -69,7 +69,7 @@ namespace PracaInzynierskaAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetLanguageById")]
+        [HttpGet("GetLanguageById/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetLanguageById(Guid id)
@@ -89,7 +89,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Language.Write)]
+        //[Authorize(Policy = Policies.Language.Write)]
         [HttpPost("CreateLanguage")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -112,7 +112,7 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Language.Update)]
+        //[Authorize(Policy = Policies.Language.Update)]
         [HttpPut("UpdateLanguage")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -135,19 +135,19 @@ namespace PracaInzynierskaAPI.API.Controllers
             }
         }
 
-        [Authorize(Policy = Policies.Language.SoftDelete)]
+        //[Authorize(Policy = Policies.Language.SoftDelete)]
         [HttpDelete("SoftDeleteLanguage")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SoftDeleteLanguage(LanguageDTO language)
+        public async Task<IActionResult> SoftDeleteLanguage(Guid id)
         {
-            if (language == null)
+            if (id == Guid.Empty)
                 return await Task.FromResult(BadRequest());
             try
             {
-                var serviceResponse = _service.SoftDeleteLanguage(language);
+                var serviceResponse = _service.SoftDeleteLanguage(id);
                 if (serviceResponse.Success)
-                    return await Task.FromResult(Ok(serviceResponse.Object));
+                    return await Task.FromResult(Ok(serviceResponse));
                 else
                     return await Task.FromResult(BadRequest(serviceResponse));
             }

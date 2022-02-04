@@ -78,10 +78,10 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Book_Author
             try
             {
                 var temp = _context.Book_Authors.Where(b_a => b_a.BookId == id).ToList();
-                if (temp == null)
+                if (temp.Count == 0)
                     return new ResponseModel<List<Guid>>
                     {
-                        Success = false,
+                        Success = true,
                         Message = "Żadna ksiązka nie jest przypisana do podanego autora"
                     };
                 foreach (var item in temp)

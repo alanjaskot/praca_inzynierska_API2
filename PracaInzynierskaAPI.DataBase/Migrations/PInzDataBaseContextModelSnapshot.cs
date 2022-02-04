@@ -303,7 +303,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<Guid?>("CommentId")
+                    b.Property<Guid>("CommentId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
@@ -350,10 +350,13 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<byte[]>("ImageFile")
-                        .HasColumnType("bytea");
+                    b.Property<string>("FileExtension")
+                        .HasColumnType("text");
 
-                    b.Property<string>("ImageTitle")
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FilePath")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsBuildIn")
@@ -585,7 +588,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 429, DateTimeKind.Local).AddTicks(6998),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 805, DateTimeKind.Local).AddTicks(5154),
                             IsBuildIn = true,
                             Likes = 0L,
                             NumberOfBooks = 0L,
@@ -637,7 +640,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("76a4ef96-9f1b-4c7f-9c3f-2daa9ed9401b"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(2704),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(3985),
                             IsBuildIn = true,
                             PermissionName = "Author.Approve",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -645,7 +648,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("3f34777b-8a49-496c-9dc8-8f13f6a512da"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4053),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(4946),
                             IsBuildIn = true,
                             PermissionName = "Author.Update",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -653,7 +656,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("d998336a-005e-4016-b72c-2c01532a5d28"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4077),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(4967),
                             IsBuildIn = true,
                             PermissionName = "Author.SoftDelete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -661,7 +664,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("6e6df870-d6dd-4434-80b8-884a6624eae7"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4086),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(4975),
                             IsBuildIn = true,
                             PermissionName = "Author.Delete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -669,7 +672,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("43b1e7bb-1d6f-407c-82f5-ec17637e7aad"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4094),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(4983),
                             IsBuildIn = true,
                             PermissionName = "Book.Approve",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -677,7 +680,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("823bf0ff-0179-4f6d-a485-e93c9523d700"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4101),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(4991),
                             IsBuildIn = true,
                             PermissionName = "Book.Update",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -685,7 +688,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("108ebc86-ceb8-4357-87f6-0b82485a389d"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4109),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(4998),
                             IsBuildIn = true,
                             PermissionName = "Book.SoftDelete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -693,7 +696,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("cf69651e-3bb1-49eb-b1ed-a3bb453ba954"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4116),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5005),
                             IsBuildIn = true,
                             PermissionName = "Book.Delete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -701,7 +704,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("613750bc-e471-4b28-be60-fd538a802f1e"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4125),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5011),
                             IsBuildIn = true,
                             PermissionName = "Category.Write",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -709,7 +712,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("24758f53-051b-4ba1-bea1-317d76c08558"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4132),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5018),
                             IsBuildIn = true,
                             PermissionName = "Category.Update",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -717,7 +720,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("1255c632-24c3-4091-b043-72d94c174db8"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4142),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5025),
                             IsBuildIn = true,
                             PermissionName = "Category.SoftDelete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -725,7 +728,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("7b073c81-8bcd-4a93-96e3-8ef64b87960b"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4149),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5031),
                             IsBuildIn = true,
                             PermissionName = "Category.Delete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -733,7 +736,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("0babc995-ad56-44e2-a92b-ca225f80ae40"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4157),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5039),
                             IsBuildIn = true,
                             PermissionName = "Comment.SoftDelete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -741,7 +744,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("77a822b5-2211-4eaa-abef-e28cff58a096"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4164),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5046),
                             IsBuildIn = true,
                             PermissionName = "ImageCover.Update",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -749,7 +752,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("08c5d55a-1784-4806-8656-1e13d8c2c61d"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4172),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5052),
                             IsBuildIn = true,
                             PermissionName = "ImagCover.Delete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -757,7 +760,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("e0f6bc31-eb25-4dbc-9af5-af200709088e"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4179),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5059),
                             IsBuildIn = true,
                             PermissionName = "Language.Write",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -765,7 +768,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("438d0327-21c7-4920-887c-de5e24e1efd2"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4187),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5066),
                             IsBuildIn = true,
                             PermissionName = "Language.Update",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -773,7 +776,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("e319013c-ac3f-45d4-b1c0-d23be2664028"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4194),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5073),
                             IsBuildIn = true,
                             PermissionName = "Language.SoftDelete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -781,7 +784,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("7b8591d9-aa83-4ff6-8a68-5c8ca41b253f"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4201),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5080),
                             IsBuildIn = true,
                             PermissionName = "NLogs.Read",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -789,7 +792,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("00268e14-83df-4882-ba68-1089579eed8a"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4209),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5088),
                             IsBuildIn = true,
                             PermissionName = "Publisher.Write",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -797,7 +800,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("1e7d8ef5-3d1d-44bd-b58f-204de558d72d"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4216),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5094),
                             IsBuildIn = true,
                             PermissionName = "Publisher.Update",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -805,7 +808,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("bc6cd79c-64c5-4bec-b5aa-e2240a0f7cf4"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4224),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5101),
                             IsBuildIn = true,
                             PermissionName = "Publisher.SoftDelete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -813,7 +816,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("d9447300-3048-4e21-bb29-4d943881554c"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4231),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5108),
                             IsBuildIn = true,
                             PermissionName = "User.Delete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -821,7 +824,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("c3d979d6-4c97-4ff4-ae14-8319388c90ed"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4239),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5115),
                             IsBuildIn = true,
                             PermissionName = "UserPermission.Write",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -829,7 +832,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("23049d10-dfea-458d-b285-3a78f6cf28d9"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4246),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5122),
                             IsBuildIn = true,
                             PermissionName = "UserPermission.Update",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")
@@ -837,7 +840,7 @@ namespace PracaInzynierskaAPI.DataBase.Migrations
                         new
                         {
                             Id = new Guid("78273246-91e9-497e-9823-7948777ddd08"),
-                            CreatedAt = new DateTime(2022, 1, 21, 15, 47, 35, 439, DateTimeKind.Local).AddTicks(4253),
+                            CreatedAt = new DateTime(2022, 1, 31, 14, 48, 33, 812, DateTimeKind.Local).AddTicks(5129),
                             IsBuildIn = true,
                             PermissionName = "UserPermission.Delete",
                             UserId = new Guid("bcad5300-ef78-4e65-9240-d3609cc88176")

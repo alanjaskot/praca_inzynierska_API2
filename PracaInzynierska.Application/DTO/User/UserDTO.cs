@@ -20,9 +20,8 @@ namespace PracaInzynierska.Application.DTO.User
         public string? Name { get; set; }
         public string? Surname { get; set; }
         public string? Sex { get; set; }
-        public DateTime? Suspended { get; set; }
         public bool? Banned { get; set; }
-        public string? Level { get; }
+        public string? Level { get; set; }
 #nullable disable
     }
 }

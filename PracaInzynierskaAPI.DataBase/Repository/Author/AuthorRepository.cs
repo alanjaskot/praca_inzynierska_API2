@@ -128,7 +128,7 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Author
 
         public ResponseModel<List<AuthorDbModel>> GetByIds(List<Guid> list)
         {
-            var result = default(List<AuthorDbModel>);
+            var result = new List<AuthorDbModel>();
             try
             {
                 foreach (var item in list)
@@ -139,7 +139,8 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Author
                     return new ResponseModel<List<AuthorDbModel>>
                     {
                         Success = true,
-                        Message = "Brak autorów do zatwierdzenia"
+                        Message = "Brak autorów do zatwierdzenia",
+                        Object = null
                     };
                 if (result != null)
                     return new ResponseModel<List<AuthorDbModel>>
@@ -284,17 +285,16 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Author
 
         public ResponseModel<Guid> SoftDelete(Guid authorId)
         {
-            var list = default(List<Guid>);
             try
             {
                 var response = GetById(authorId);
                 var author = response.Object;
-                if (author.IsDeleted == false)
+                if (author.IsDeleted != true)
                 {
                     author.IsDeleted = true;
                     author.DeletedAt = DateTime.Now;
                     var softDelete = _context.Authors.Update(author);
-                    if (softDelete.State == EntityState.Deleted)
+                    if (softDelete.State == EntityState.Modified)
                         return new ResponseModel<Guid>
                         {
                             Success = true,

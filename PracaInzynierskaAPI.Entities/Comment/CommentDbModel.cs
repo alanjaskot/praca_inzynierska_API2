@@ -19,7 +19,7 @@ namespace PracaInzynierskaAPI.Entities.Comment
         [JsonIgnore]
         public UserDbModel User { get; set; }
 
-        public Guid? CommentId { get; set; }
+        public Guid CommentId { get; set; }
         [JsonIgnore]
         public CommentDbModel ToComment { get; set; }
 

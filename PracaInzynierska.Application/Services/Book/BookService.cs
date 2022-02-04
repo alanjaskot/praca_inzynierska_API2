@@ -1,28 +1,21 @@
-﻿using AutoMapper;
-using NLog;
+﻿using NLog;
 using PracaInzynierska.Application.DTO.Book;
+using PracaInzynierska.Application.Mapper.BooksMapper;
 using PracaInzynierskaAPI.DataBase.UnitOfWork;
-using PracaInzynierskaAPI.Entities.Book;
 using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PracaInzynierska.Application.Services.Book
 {
     public class BookService: IBookService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private static IMapper _mapper;
         private ILogger _logger;
 
-        public BookService(IUnitOfWork unitOfWork,
-            IMapper mapper)
+        public BookService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = LogManager.GetCurrentClassLogger();
         }
 
@@ -43,7 +36,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object = BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<List<BookDTO>>
@@ -76,7 +69,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object = BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<List<BookDTO>>
@@ -110,7 +103,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object = BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<List<BookDTO>>
@@ -143,7 +136,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object =  BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<List<BookDTO>>
@@ -176,7 +169,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object =  BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<List<BookDTO>>
@@ -209,7 +202,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object =  BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 
@@ -243,7 +236,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object =  BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<List<BookDTO>>
@@ -276,7 +269,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object =  BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<List<BookDTO>>
@@ -309,7 +302,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<List<BookDTO>>(repoResponse.Object)
+                        Object =  BookMapper.BooksToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<List<BookDTO>>
@@ -342,7 +335,7 @@ namespace PracaInzynierska.Application.Services.Book
                     {
                         Success = repoResponse.Success,
                         Message = repoResponse.Message,
-                        Object = _mapper.Map<BookDTO>(repoResponse.Object)
+                        Object = BookMapper.BookToDTO(repoResponse.Object)
                     };
 
                 return new ResponseModel<BookDTO>
@@ -363,7 +356,7 @@ namespace PracaInzynierska.Application.Services.Book
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetBookRepository.Add(_mapper.Map<BookDbModel>(book));
+                var repoResponse = _unitOfWork.GetBookRepository.Add(BookMapper.BookToDbModel(book));
                 if(repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -432,12 +425,12 @@ namespace PracaInzynierska.Application.Services.Book
             }
         }
 
-        public ResponseModel<bool> ApproveBooks(List<BookDTO> book)
+        public ResponseModel<bool> ApproveBooks(List<BookDTO> books)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoRespone = _unitOfWork.GetBookRepository.Approve(_mapper.Map<List<BookDbModel>>(book));
+                var repoRespone = _unitOfWork.GetBookRepository.Approve(BookMapper.BooksToDbModel(books));
                 if (repoRespone.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -474,7 +467,7 @@ namespace PracaInzynierska.Application.Services.Book
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetBookRepository.Update(_mapper.Map<BookDbModel>(book));
+                var repoResponse = _unitOfWork.GetBookRepository.Update(BookMapper.BookToDbModel(book));
                 if (repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -506,12 +499,12 @@ namespace PracaInzynierska.Application.Services.Book
             }
         }
 
-        public ResponseModel<List<Guid>> SoftDeleteBooks(List<BookDTO> book)
+        public ResponseModel<List<Guid>> SoftDeleteBooks(List<BookDTO> books)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetBookRepository.SoftDelete(_mapper.Map<List<BookDbModel>>(book));
+                var repoResponse = _unitOfWork.GetBookRepository.SoftDelete(BookMapper.BooksToDbModel(books));
                 if(repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
