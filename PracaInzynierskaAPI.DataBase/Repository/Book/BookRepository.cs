@@ -473,28 +473,24 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Book
             }
         }
 
-        public ResponseModel<bool> Approve(List<BookDbModel> books)
+        public ResponseModel<bool> Approve(BookDbModel book)
         {
             var list = default(List<BookDbModel>);
             try
             {
-                foreach(var book in books)
+            if (book != null && book.Approved == false)
+            {
+                book.Approved = true;
+                list.Add(book);
+            }
+
+             var update = _context.Books.Update(book);
+            if(update.State == EntityState.Modified)
+                return new ResponseModel<bool>
                 {
-                    if (book != null && book.Approved == false)
-                    {
-                        book.Approved = true;
-                        list.Add(book);
-                    }
-                }
-                if(list != null)
-                {
-                    _context.Books.UpdateRange(list);
-                    return new ResponseModel<bool>
-                    {
                         Success = true,
                         Message = null
-                    };
-                }                
+                };            
             }
             catch (Exception err)
             {
@@ -536,44 +532,44 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Book
             };
         }
 
-        public ResponseModel<List<Guid>> SoftDelete(List<BookDbModel> books)
+        public ResponseModel<Guid> SoftDelete(Guid id)
         {
-            if (books == null)
-                return new ResponseModel<List<Guid>>
+            if (id == Guid.Empty)
+                return new ResponseModel<Guid>
                 {
                     Success = false,
                     Message = "brak książek do usunięcia"
                 };
 
-            var list = default(List<BookDbModel>);
-            var guids = default(List<Guid>);
             try
             {
-                foreach(var book in books)
+                BookDbModel book = new BookDbModel();
+                var repoResponse = GetById(id);
+                if (repoResponse.Object != null)
                 {
-                    if (book.IsDeleted == false)
-                    {
-                        book.IsDeleted = true;
-                        book.DeletedAt = DateTime.Now;
-                        list.Add(book);
-                        guids.Add(book.Id);
-                    }
+                    book = repoResponse.Object;
                 }
-
-                if (list.Count == guids.Count)
-                    return new ResponseModel<List<Guid>>
+                else
+                    return new ResponseModel<Guid>
+                    {
+                        Success = false,
+                        Message = "Wybranej książki nie ma w bazie danych"
+                    };
+                var delete = _context.Books.Remove(book);
+                if(delete.State == EntityState.Modified)
+                    return new ResponseModel<Guid>
                     {
                         Success = true,
                         Message = null,
-                        Object = guids
-                    };
+                        Object = id
+                    };                    
             }
             catch (Exception err)
             {
                 _logger.Error(err, "BookRepo.SoftDelete");
                 throw;
             }
-            return new ResponseModel<List<Guid>>
+            return new ResponseModel<Guid>
             {
                 Success = false,
                 Message = "Usuwanie zakończone niepowodzeniem"

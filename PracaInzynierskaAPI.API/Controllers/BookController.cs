@@ -7,9 +7,9 @@ using PracaInzynierska.Application.DTO.Book_Author;
 using PracaInzynierska.Application.Services.Book;
 using PracaInzynierska.Application.Services.Book_Author;
 using PracaInzynierskaAPI.API.PoliciesAndPermissions;
+using PracaInzynierskaAPI.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PracaInzynierskaAPI.API.Controllers
@@ -280,18 +280,15 @@ namespace PracaInzynierskaAPI.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> ApproveBooks(List<BookDTO> books)
+        public async Task<IActionResult> ApproveBook(Guid id)
         {
-            if (books == null)
-                return await Task.FromResult(BadRequest());
+            if (book == null)
+                return await Task.FromResult(BadRequest("Nie wprowadzono książki"));
 
             try
             {
-                var serviceResponse = _service.ApproveBooks(books);
-                if (serviceResponse.Success)
-                    return await Task.FromResult(Ok(serviceResponse));
-                else
-                    return await Task.FromResult(BadRequest(serviceResponse));
+                var serviceResponse = _service.ApproveBooks(id);
+                return await Task.FromResult(Ok(serviceResponse));
             }
             catch (Exception err)
             {
@@ -326,28 +323,31 @@ namespace PracaInzynierskaAPI.API.Controllers
         }
 
         //[Authorize(Policy = Policies.Book.SoftDelete)]
-        [HttpDelete("SoftDeleteBooks")]
+        [HttpDelete("SoftDeleteBooks/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> SoftDeleteBooks(List<BookDTO> books)
+        public async Task<IActionResult> SoftDeleteBooks(Guid id)
         {
-            if (books == null)
-                return await Task.FromResult(BadRequest());
+            if (id == Guid.Empty)
+                return await Task.FromResult(BadRequest(new ResponseModel<string>
+                {
+                    Success = false,
+                    Message = "Nie wprowadzono identyfikatora",
+                    Object =null
+                }));
 
             try
             {
-                foreach (var book in books)
-                {
-                    var baServiceResponse = _baService.DeleteBook_Author(book.Id);
-                    if (!baServiceResponse.Success)
-                        return await Task.FromResult(BadRequest("Wystąpił błąd w trakcie usuwania"));
-                }
-                var serviceResponse = _service.SoftDeleteBooks(books);
+                var baServiceResponse = _baService.DeleteBook_Author(id);
+                if (!baServiceResponse.Success)
+                    return await Task.FromResult(Ok(baServiceResponse));
+
+                var serviceResponse = _service.SoftDeleteBook(id);
                 if (serviceResponse.Success)
                     return await Task.FromResult(Ok(serviceResponse));
                 else
-                    return await Task.FromResult(BadRequest(serviceResponse));
+                    return await Task.FromResult(Ok(serviceResponse));
             }
             catch (Exception err)
             {

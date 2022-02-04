@@ -22,9 +22,9 @@ namespace PracaInzynierska.Application.Services.Book
         public ResponseModel<BookDTO> GetBookById(Guid id);
         public ResponseModel<Guid> AddBook(BookDTO book);
         public ResponseModel<decimal> AddPlusOrMinusToBook(Guid bookId, long plus);
-        public ResponseModel<bool> ApproveBooks(List<BookDTO> book);
+        public ResponseModel<bool> ApproveBooks(Guid id);
         public ResponseModel<Guid> UpdateBook(BookDTO book);
-        public ResponseModel<List<Guid>> SoftDeleteBooks(List<BookDTO> book);
+        public ResponseModel<Guid> SoftDeleteBook(Guid id);
         public ResponseModel<Guid> DeleteBook(Guid id);
     }
 }

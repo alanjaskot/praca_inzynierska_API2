@@ -425,12 +425,12 @@ namespace PracaInzynierska.Application.Services.Book
             }
         }
 
-        public ResponseModel<bool> ApproveBooks(List<BookDTO> books)
+        public ResponseModel<bool> ApproveBooks(Guid id)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoRespone = _unitOfWork.GetBookRepository.Approve(BookMapper.BooksToDbModel(books));
+                var repoRespone = _unitOfWork.GetBookRepository.Approve(id);
                 if (repoRespone.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -499,12 +499,12 @@ namespace PracaInzynierska.Application.Services.Book
             }
         }
 
-        public ResponseModel<List<Guid>> SoftDeleteBooks(List<BookDTO> books)
+        public ResponseModel<Guid> SoftDeleteBook(Guid id)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-                var repoResponse = _unitOfWork.GetBookRepository.SoftDelete(BookMapper.BooksToDbModel(books));
+                var repoResponse = _unitOfWork.GetBookRepository.SoftDelete(id);
                 if(repoResponse.Success)
                 {
                     var save = _unitOfWork.Save();
@@ -516,7 +516,7 @@ namespace PracaInzynierska.Application.Services.Book
                     else
                     {
                         _unitOfWork.RollBackTransaction();
-                        return new ResponseModel<List<Guid>>
+                        return new ResponseModel<Guid>
                         {
                             Success = false,
                             Message = "Nie udało się usunąć wybranych książek"

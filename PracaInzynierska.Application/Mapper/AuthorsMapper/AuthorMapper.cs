@@ -8,10 +8,9 @@ namespace PracaInzynierska.Application.Mapper.AuthorsMapper
     {
         public static AuthorDTO AuthorToDTO(AuthorDbModel author)
         {
-            var authorDTO = new AuthorDTO();
             if (author != null)
             {
-                authorDTO = new AuthorDTO
+                var authorDTO = new AuthorDTO
                 {
                     Id = author.Id,
                     IsBuildIn = author.IsBuildIn,

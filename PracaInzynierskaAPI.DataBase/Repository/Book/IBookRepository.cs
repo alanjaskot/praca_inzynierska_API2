@@ -22,9 +22,9 @@ namespace PracaInzynierskaAPI.DataBase.Repository.Book
         public ResponseModel<BookDbModel> GetById(Guid id);
         public ResponseModel<Guid> Add(BookDbModel book);
         public ResponseModel<decimal> AddPlusOrMinus(Guid bookId, long plus);
-        public ResponseModel<bool> Approve(List<BookDbModel> book);
+        public ResponseModel<bool> Approve(Guid id);
         public ResponseModel<Guid> Update(BookDbModel book);
-        public ResponseModel<List<Guid>> SoftDelete(List<BookDbModel> book);
+        public ResponseModel<Guid> SoftDelete(Guid id);
         public ResponseModel<Guid> Delete(Guid id);
     }
 }
